@@ -74,9 +74,9 @@ export default function SignUpPage() {
   };
 
   return (
-    <main className="min-h-screen pt-24 md:pt-32 flex items-center justify-center px-4 pb-4 relative">
-      <div className="absolute inset-0 bg-surface overflow-hidden pointer-events-none">
-        <div className="absolute top-[30%] left-[20%] w-[40%] h-[40%] bg-primary/20 blur-[120px] rounded-full" />
+    <main className="min-h-screen pt-24 md:pt-32 flex flex-col items-center justify-center px-4 pb-16 relative">
+      <div className="absolute inset-0 bg-background overflow-hidden pointer-events-none">
+        <div className="absolute top-[30%] left-[20%] w-[40%] h-[40%] bg-primary/10 blur-[120px] rounded-full" />
       </div>
 
       <div className="relative z-10 w-full max-w-md">

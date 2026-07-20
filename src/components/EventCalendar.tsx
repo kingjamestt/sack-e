@@ -5,11 +5,12 @@ import { format, startOfMonth, endOfMonth, eachDayOfInterval, isSameDay, addMont
 import { useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { getEventLink } from '@/lib/events';
 
 export default function EventCalendar({ events }: { events: EventData[] }) {
   const [currentDate, setCurrentDate] = useState(new Date());
-  const [selectedDay, setSelectedDay] = useState<Date | null>(null);
+  const [selectedDay, setSelectedDay] = useState<Date | null>(new Date());
   
   const monthStart = startOfMonth(currentDate);
   const monthEnd = endOfMonth(currentDate);
@@ -118,18 +119,24 @@ export default function EventCalendar({ events }: { events: EventData[] }) {
                 <Link 
                   key={event.id}
                   href={getEventLink(event)}
-                  className="flex items-center justify-between p-4 bg-surface-container-high rounded-xl hover:bg-surface-container-highest border border-white/5 hover:border-black/10 transition-all group"
+                  className="flex items-start gap-4 p-4 rounded-xl hover:bg-surface-container hover:border-black/10 transition-all group"
                 >
-                  <div>
-                    <h5 className="font-bold text-lg group-hover:text-primary transition-colors">{event.title}</h5>
-                    <div className="flex gap-4 text-sm text-on-surface-variant mt-1">
-                      {event.time && <span>{event.time}</span>}
-                      <span>{event.location}</span>
-                    </div>
+                  <div className="relative w-20 h-20 sm:w-24 sm:h-24 flex-shrink-0 rounded-lg overflow-hidden border border-white/10">
+                    <Image 
+                      src={event.imageUrl || '/placeholder-event.jpg'} 
+                      alt={event.title} 
+                      fill 
+                      className="object-cover"
+                    />
                   </div>
-                  <div className="text-right">
-                    <span className="block text-secondary font-bold">{event.price}</span>
-                    <span className="text-xs text-primary group-hover:underline">View details &rarr;</span>
+                  <div className="flex flex-col justify-center h-full pt-1">
+                    <h5 className="font-bold text-[16px] sm:text-lg leading-snug group-hover:text-primary transition-colors mb-1">{event.title}</h5>
+                    <div className="text-[14px] sm:text-[15px] text-on-surface-variant mb-0.5">
+                      {event.location}
+                    </div>
+                    <div className="text-[14px] sm:text-[15px] text-on-surface-variant">
+                      {format(parseISO(event.date), 'MMM do')} {event.time && `@ ${event.time}`}
+                    </div>
                   </div>
                 </Link>
               ))

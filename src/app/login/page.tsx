@@ -173,10 +173,10 @@ function LoginContent() {
   };
 
   return (
-    <main className="min-h-screen pt-24 md:pt-32 flex flex-col items-center justify-center px-4 pb-4 relative">
-      <div className="absolute inset-0 bg-surface overflow-hidden pointer-events-none">
-        <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-primary/20 blur-[120px] rounded-full" />
-        <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] bg-secondary/20 blur-[120px] rounded-full" />
+    <main className="min-h-screen pt-24 md:pt-32 flex flex-col items-center justify-center px-4 pb-16 relative">
+      <div className="absolute inset-0 bg-background overflow-hidden pointer-events-none">
+        <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-primary/10 blur-[120px] rounded-full" />
+        <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] bg-secondary/10 blur-[120px] rounded-full" />
       </div>
 
       <div className="relative z-10 w-full max-w-md">
@@ -352,7 +352,7 @@ function LoginContent() {
             <Link href="/signup" className="text-primary hover:text-primary-container font-bold transition-colors">Sign up</Link>
           </p>
         </div>
-        <div className="mt-8 flex justify-center w-full">
+        <div className="mt-12 mb-8 flex justify-center w-full">
           <Link href="/" className="inline-flex items-center text-sm font-semibold text-on-surface-variant hover:text-primary transition-colors bg-surface-container/50 px-4 py-2 rounded-full backdrop-blur-md">
             <ArrowLeft size={16} className="mr-2" /> Back to Home
           </Link>
