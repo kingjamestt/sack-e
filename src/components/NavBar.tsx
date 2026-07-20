@@ -194,7 +194,7 @@ export default function NavBar() {
                     onClick={() => setAccountDropdownOpen(!accountDropdownOpen)} 
                     className="p-1.5 sm:p-2 text-on-surface-variant hover:text-primary transition-colors rounded-full hover:bg-surface-container ml-0.5 sm:ml-1"
                   >
-                    <User size={22} className="w-5 h-5 sm:w-6 sm:h-6" />
+                    <User size={22} className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
                   </button>
                   
                   {accountDropdownOpen && (

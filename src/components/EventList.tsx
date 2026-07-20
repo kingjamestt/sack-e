@@ -63,7 +63,12 @@ export default function EventList({ viewMode = 'grid', searchQuery = '' }: { vie
   const filteredEvents = events.filter(event => {
     if (!searchQuery) return true;
     const lower = searchQuery.toLowerCase();
-    return event.title.toLowerCase().includes(lower) || event.location.toLowerCase().includes(lower);
+    return (
+      event.title.toLowerCase().includes(lower) || 
+      event.location.toLowerCase().includes(lower) ||
+      (event.description && event.description.toLowerCase().includes(lower)) ||
+      (event.organizerName && event.organizerName.toLowerCase().includes(lower))
+    );
   });
 
   if (firstLoad) {

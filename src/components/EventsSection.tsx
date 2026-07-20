@@ -33,7 +33,7 @@ function EventsContent() {
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant" size={20} />
             <input 
               type="text" 
-              placeholder="Search events, artists..." 
+              placeholder="Search events, artists, venues..." 
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full bg-surface-container-lowest border border-outline-variant rounded-full py-3 pl-12 pr-4 font-body text-base text-on-surface focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all shadow-sm"

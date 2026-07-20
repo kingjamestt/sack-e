@@ -67,13 +67,14 @@ export default function RootLayout({
                 <h3 className="font-semibold text-on-surface mb-2 font-montserrat">Company</h3>
                 <Link href="/about" className="text-sm text-on-surface-variant hover:text-primary transition-colors">About Us</Link>
                 <Link href="/contact" className="text-sm text-on-surface-variant hover:text-primary transition-colors">Contact</Link>
-                <Link href="/careers" className="text-sm text-on-surface-variant hover:text-primary transition-colors">Careers</Link>
               </div>
               <div className="flex flex-col gap-3">
-                <h3 className="font-semibold text-on-surface mb-2 font-montserrat">Support</h3>
+                <h3 className="font-semibold text-on-surface mb-2 font-montserrat">Support & Legal</h3>
                 <Link href="/faq" className="text-sm text-on-surface-variant hover:text-primary transition-colors">FAQ</Link>
-                <Link href="/refunds" className="text-sm text-on-surface-variant hover:text-primary transition-colors">Refund Policy</Link>
                 <Link href="/terms" className="text-sm text-on-surface-variant hover:text-primary transition-colors">Terms of Service</Link>
+                <Link href="/privacy" className="text-sm text-on-surface-variant hover:text-primary transition-colors">Privacy Policy</Link>
+                <Link href="/refunds" className="text-sm text-on-surface-variant hover:text-primary transition-colors">Refund Policy</Link>
+                <Link href="/merchant-agreement" className="text-sm text-on-surface-variant hover:text-primary transition-colors">Merchant Agreement</Link>
               </div>
               <div className="flex flex-col gap-3">
                 <h3 className="font-semibold text-on-surface mb-2 font-montserrat">Organizers</h3>
