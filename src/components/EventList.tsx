@@ -87,38 +87,52 @@ export default function EventList({ viewMode = 'grid', searchQuery = '' }: { vie
     return <div className="text-center py-20 text-on-surface-variant font-semibold">No events found.</div>;
   }
 
+  // Group filtered events by month
+  const groupedEvents: { [key: string]: EventData[] } = {};
+  filteredEvents.forEach(event => {
+    const monthYear = format(parseISO(event.date), 'MMMM yyyy');
+    if (!groupedEvents[monthYear]) {
+      groupedEvents[monthYear] = [];
+    }
+    groupedEvents[monthYear].push(event);
+  });
+
+  const lastEventId = filteredEvents[filteredEvents.length - 1]?.id;
+
   if (viewMode === 'calendar' && !searchQuery) {
     return <EventCalendar events={events} />;
   }
 
   return (
-    <div className="min-h-[60vh]">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {filteredEvents.map((event, index) => {
-          const isLast = filteredEvents.length === index + 1;
-          const currentMonthYear = format(parseISO(event.date), 'MMM yyyy');
-          const prevMonthYear = index > 0 ? format(parseISO(filteredEvents[index - 1].date), 'MMM yyyy') : null;
-          const showSeparator = currentMonthYear !== prevMonthYear;
+    <div className="min-h-[60vh] space-y-12">
+      {Object.entries(groupedEvents).map(([monthYear, monthEvents]) => (
+        <div key={monthYear} className="relative">
+          {/* Sticky Month Header */}
+          <div className="sticky top-[80px] md:top-[96px] z-20 -mx-4 px-4 py-3 bg-surface/90 backdrop-blur-md border-b border-outline-variant/30 flex justify-between items-center rounded-xl shadow-sm mb-6">
+            <h3 className="text-sm font-extrabold uppercase tracking-[0.2em] text-primary">
+              {monthYear}
+            </h3>
+            <span className="text-xs font-bold text-on-surface-variant bg-surface-container-high px-3 py-1 rounded-full">
+              {monthEvents.length} {monthEvents.length === 1 ? 'event' : 'events'}
+            </span>
+          </div>
 
-          return (
-            <Fragment key={`fragment-${event.id}`}>
-              {showSeparator && (
-                <div className="col-span-full sticky top-[72px] md:top-[88px] z-30 py-2 mt-8 mb-2 first:mt-0 bg-background/80 backdrop-blur-md">
-                  <h3 className="text-sm font-bold uppercase tracking-[0.2em] text-on-surface-variant opacity-80">
-                    {currentMonthYear}
-                  </h3>
+          {/* Grid of Events for this month */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {monthEvents.map((event) => {
+              const isLast = event.id === lastEventId;
+              return (
+                <div key={event.id} className="col-span-1 h-[400px]">
+                  <EventCard 
+                    event={event} 
+                    innerRef={isLast ? lastEventElementRef : undefined} 
+                  />
                 </div>
-              )}
-              <div className="col-span-1 h-[400px]">
-                <EventCard 
-                  event={event} 
-                  innerRef={isLast ? lastEventElementRef : undefined} 
-                />
-              </div>
-            </Fragment>
-          );
-        })}
-      </div>
+              );
+            })}
+          </div>
+        </div>
+      ))}
       
       {loading && (
         <div className="w-full flex justify-center py-12">
