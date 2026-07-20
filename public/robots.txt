@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /*/callback
+Disallow: /checkout/callback
+Disallow: /my-tickets
+Disallow: /verify
+Disallow: /dashboard
+
+Sitemap: https://sack-e.com/sitemap.xml
