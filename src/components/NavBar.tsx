@@ -79,13 +79,15 @@ export default function NavBar() {
   const NavLink = ({ path, icon, text }: { path: string, icon: React.ReactNode, text: string }) => {
     const isActive = pathname === path || (path === '/#events-section' && pathname === '/');
     return (
-      <Link href={path} className={`flex items-center gap-1.5 font-body text-sm xl:text-base font-bold transition-all duration-300 active:scale-95 whitespace-nowrap px-2 md:px-3 py-1.5 md:py-2 rounded-full ${
+      <Link href={path} className={`flex items-center gap-1.5 font-body text-sm xl:text-base font-bold transition-all duration-300 active:scale-95 whitespace-nowrap px-2.5 md:px-4 py-2 md:py-2.5 rounded-full ${
         isActive 
           ? 'bg-primary/10 text-primary' 
           : 'text-on-surface-variant hover:text-on-surface hover:bg-surface-container'
       }`}>
         {icon}
-        {isActive && <span className="animate-in fade-in slide-in-from-left-1 hidden min-[375px]:inline-block">{text}</span>}
+        <span className={isActive ? "hidden min-[375px]:inline-block animate-in fade-in slide-in-from-left-1" : "hidden md:inline-block"}>
+          {text}
+        </span>
       </Link>
     );
   };
@@ -93,7 +95,7 @@ export default function NavBar() {
   return (
     <>
       <div className="fixed top-4 left-1/2 -translate-x-1/2 z-40 w-[calc(100%-1rem)] sm:w-[calc(100%-2rem)] max-w-7xl transition-all duration-300">
-        <nav className="bg-surface/90 backdrop-blur-3xl w-full border border-outline-variant/30 shadow-[0_8px_32px_rgba(0,0,0,0.12)] rounded-full flex justify-between items-center px-2 sm:px-4 md:px-6 py-2 md:py-3">
+        <nav className="bg-surface/90 backdrop-blur-3xl w-full border border-outline-variant/30 shadow-[0_8px_32px_rgba(0,0,0,0.12)] rounded-full flex justify-between items-center px-2 sm:px-4 md:px-6 py-3 md:py-4">
           
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 flex-shrink-0 mr-1 sm:mr-4">
