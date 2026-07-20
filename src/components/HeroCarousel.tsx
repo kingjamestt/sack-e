@@ -64,8 +64,8 @@ export default function HeroCarousel() {
           priority
           className="object-cover opacity-95 transition-transform duration-1000 group-hover:scale-105"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-on-background/95 via-on-background/60 to-transparent z-10" />
-        <div className="absolute inset-0 bg-gradient-to-r from-on-background/70 to-transparent hidden md:block z-10" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#001d3d]/90 via-[#0B4DE5]/40 to-transparent z-10" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#001d3d]/70 to-transparent hidden md:block z-10" />
         
         <div className="relative z-20 px-6 md:px-8 w-full max-w-7xl mx-auto flex flex-col items-start animate-in slide-in-from-bottom-8 fade-in duration-700">
           <div className="flex gap-2 mb-4">
@@ -110,9 +110,9 @@ export default function HeroCarousel() {
         </div>
       ))}
       
-      {/* Dark Overlay for readability */}
-      <div className="absolute inset-0 bg-gradient-to-t from-on-background/95 via-on-background/60 to-transparent z-10" />
-      <div className="absolute inset-0 bg-gradient-to-r from-on-background/70 to-transparent hidden md:block z-10" />
+      {/* Deep Blue Overlay for readability and theme matching */}
+      <div className="absolute inset-0 bg-gradient-to-t from-[#001d3d]/95 via-[#0B4DE5]/50 to-transparent z-10" />
+      <div className="absolute inset-0 bg-gradient-to-r from-[#001d3d]/70 to-transparent hidden md:block z-10" />
 
       {/* Content */}
       <div className="relative z-20 w-full max-w-7xl mx-auto px-6 md:px-8 flex flex-col items-start">

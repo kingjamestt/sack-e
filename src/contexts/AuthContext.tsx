@@ -11,8 +11,18 @@ import {
 import { auth, db } from '@/lib/firebase';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 
+interface UserData {
+  name: string;
+  email: string;
+  role: string;
+  photoURL: string;
+  onboarded: boolean;
+  [key: string]: any;
+}
+
 interface AuthContextType {
   user: User | null;
+  userData: UserData | null;
   loading: boolean;
   signInWithGoogle: () => Promise<void>;
   logout: () => Promise<void>;
@@ -20,6 +30,7 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType>({
   user: null,
+  userData: null,
   loading: true,
   signInWithGoogle: async () => {},
   logout: async () => {},
@@ -27,6 +38,7 @@ const AuthContext = createContext<AuthContextType>({
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
+  const [userData, setUserData] = useState<UserData | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -36,19 +48,32 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         const userRef = doc(db, 'users', user.uid);
         const userSnap = await getDoc(userRef);
         
+        let fetchedUserData;
         if (!userSnap.exists()) {
           try {
-            await setDoc(userRef, {
+            fetchedUserData = {
               name: user.displayName || 'New User',
               email: user.email || '',
               createdAt: new Date().toISOString(),
               role: 'user',
               photoURL: user.photoURL || '',
-            });
+              onboarded: false,
+            };
+            await setDoc(userRef, fetchedUserData);
+            setUserData(fetchedUserData as UserData);
           } catch (error) {
             console.error('Error creating user document:', error);
           }
+        } else {
+          fetchedUserData = userSnap.data() as UserData;
+          if (fetchedUserData.onboarded === undefined) {
+            fetchedUserData.onboarded = false;
+            await setDoc(userRef, { onboarded: false }, { merge: true });
+          }
+          setUserData(fetchedUserData);
         }
+      } else {
+        setUserData(null);
       }
       
       setUser(user);
@@ -78,7 +103,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, signInWithGoogle, logout }}>
+    <AuthContext.Provider value={{ user, userData, loading, signInWithGoogle, logout }}>
       {children}
     </AuthContext.Provider>
   );

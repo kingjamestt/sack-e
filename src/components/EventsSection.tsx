@@ -4,7 +4,6 @@ import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { Calendar, Search, LayoutGrid, X } from "lucide-react";
 import EventList from "./EventList";
-import Fireflies from "./Fireflies";
 
 function EventsContent() {
   const searchParams = useSearchParams();
@@ -20,7 +19,6 @@ function EventsContent() {
 
   return (
     <section id="events-section" className="relative px-6 md:px-8 py-16 w-full max-w-7xl mx-auto scroll-mt-24 animate-slideUp">
-      <Fireflies quantity={25} />
       
       {/* Tightened Header Bar */}
       <div className="relative z-10 flex flex-col lg:flex-row justify-between items-start lg:items-end gap-6 mb-12 border-b border-outline-variant/30 pb-6">

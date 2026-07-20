@@ -74,11 +74,11 @@ export default function NavBar() {
 
   const getLinkClass = (path: string) => {
     const isActive = pathname === path || (path === '/#events-section' && pathname === '/');
-    return `font-body text-sm xl:text-base font-bold transition-all duration-200 active:scale-95 whitespace-nowrap border-b-2 ${
+    return `relative font-body text-sm xl:text-base font-bold transition-all duration-200 active:scale-95 whitespace-nowrap py-1 ${
       isActive 
-        ? 'text-primary border-primary' 
-        : 'text-on-surface-variant border-transparent hover:text-primary'
-    }`;
+        ? 'text-primary' 
+        : 'text-on-surface-variant hover:text-primary'
+    } after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-full after:h-0.5 after:bg-primary after:transition-transform after:duration-300 after:origin-left ${isActive ? 'after:scale-x-100' : 'after:scale-x-0 hover:after:scale-x-100'}`;
   };
 
   const getMobileLinkClass = (path: string) => {

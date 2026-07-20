@@ -53,16 +53,44 @@ export default function RootLayout({
           <div className="flex-grow">
             {children}
           </div>
-          <footer className="w-full py-10 mt-20 border-t border-white/5 bg-surface-container-lowest/80 backdrop-blur-md flex flex-col items-center justify-center gap-4 relative z-10">
-            <div className="flex items-center gap-4 text-sm font-semibold text-on-surface-variant">
-              <Link href="/contact" className="hover:text-primary transition-colors">Contact Us / Support</Link>
+          <footer className="w-full py-12 mt-20 border-t border-surface-variant/20 bg-surface/50 backdrop-blur-md relative z-10">
+            <div className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+              <div className="flex flex-col gap-4">
+                <div className="font-bold text-2xl tracking-tight text-primary font-montserrat">
+                  Sack-E<span className="text-secondary">.</span>
+                </div>
+                <p className="text-sm text-on-surface-variant max-w-xs">
+                  Experience a premium, accessible, and convenient ticketing platform for events, concerts, and nightlife.
+                </p>
+              </div>
+              <div className="flex flex-col gap-3">
+                <h3 className="font-semibold text-on-surface mb-2 font-montserrat">Company</h3>
+                <Link href="/about" className="text-sm text-on-surface-variant hover:text-primary transition-colors">About Us</Link>
+                <Link href="/contact" className="text-sm text-on-surface-variant hover:text-primary transition-colors">Contact</Link>
+                <Link href="/careers" className="text-sm text-on-surface-variant hover:text-primary transition-colors">Careers</Link>
+              </div>
+              <div className="flex flex-col gap-3">
+                <h3 className="font-semibold text-on-surface mb-2 font-montserrat">Support</h3>
+                <Link href="/faq" className="text-sm text-on-surface-variant hover:text-primary transition-colors">FAQ</Link>
+                <Link href="/refunds" className="text-sm text-on-surface-variant hover:text-primary transition-colors">Refund Policy</Link>
+                <Link href="/terms" className="text-sm text-on-surface-variant hover:text-primary transition-colors">Terms of Service</Link>
+              </div>
+              <div className="flex flex-col gap-3">
+                <h3 className="font-semibold text-on-surface mb-2 font-montserrat">Organizers</h3>
+                <Link href="/sell" className="text-sm text-on-surface-variant hover:text-primary transition-colors">Sell Tickets</Link>
+                <Link href="/pricing" className="text-sm text-on-surface-variant hover:text-primary transition-colors">Pricing</Link>
+                <Link href="/dashboard" className="text-sm text-on-surface-variant hover:text-primary transition-colors">Dashboard</Link>
+              </div>
             </div>
-            <p className="text-on-surface-variant font-medium text-sm">&copy; {new Date().getFullYear()} Sack-E Online. All rights reserved.</p>
-            <div className="flex items-center gap-1.5 text-xs text-on-surface/60 font-bold tracking-widest uppercase mt-4">
-              <span>Powered by</span>
-              <a href="https://www.bsweb.co" target="_blank" rel="noreferrer" className="opacity-90 hover:opacity-100 transition-all flex items-center">
-                <Image src="/bs-logo-original.png" alt="BS Web Solutions" width={60} height={20} className="object-contain" />
-              </a>
+            
+            <div className="container mx-auto px-6 pt-8 border-t border-surface-variant/20 flex flex-col items-center justify-center gap-4">
+              <p className="text-on-surface-variant font-medium text-sm">&copy; {new Date().getFullYear()} Sack-E Online. All rights reserved.</p>
+              <div className="flex items-center gap-1.5 text-xs text-on-surface/60 font-bold tracking-widest uppercase">
+                <span>Powered by</span>
+                <a href="https://www.bsweb.co" target="_blank" rel="noreferrer" className="opacity-90 hover:opacity-100 transition-all flex items-center">
+                  <Image src="/bs-logo-original.png" alt="BS Web Solutions" width={60} height={20} className="object-contain" />
+                </a>
+              </div>
             </div>
           </footer>
           <Toaster 
