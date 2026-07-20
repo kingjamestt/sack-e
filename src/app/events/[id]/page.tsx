@@ -152,7 +152,7 @@ export default function EventDetailsPage({ params }: { params: Promise<{ id: str
         <div className="absolute inset-0 bg-surface/80" />
       </div>
 
-      <div className="relative z-10 max-w-6xl mx-auto px-4 md:px-6 pt-24 lg:pt-28">
+      <div className="relative z-10 max-w-6xl mx-auto px-4 md:px-6 pt-8 lg:pt-12">
 
         {/* Hero Section */}
         <div className="rounded-3xl overflow-hidden bg-surface-container border border-white/10 shadow-2xl mb-8 lg:mb-12 flex flex-col lg:flex-row min-h-[350px]">
