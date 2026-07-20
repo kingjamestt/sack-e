@@ -1,0 +1,19 @@
+{"users": [
+{
+  "localId": "QRVWfOW1HsOxymGrOMxoyDHvTxm1",
+  "email": "brandonjames101@gmail.com",
+  "emailVerified": true,
+  "displayName": "Brandon James",
+  "photoUrl": "https://lh3.googleusercontent.com/a/ACg8ocK1p6tiSbhb-AE0s7_5TjDyJAsw1bv9knSCHxWCZe4LCVo33Gwldw=s96-c",
+  "lastSignedInAt": "1783567843496",
+  "createdAt": "1783551563159",
+  "providerUserInfo": [
+    {
+      "providerId": "google.com",
+      "rawId": "108493264819380445767",
+      "email": "brandonjames101@gmail.com",
+      "displayName": "Brandon James",
+      "photoUrl": "https://lh3.googleusercontent.com/a/ACg8ocK1p6tiSbhb-AE0s7_5TjDyJAsw1bv9knSCHxWCZe4LCVo33Gwldw=s96-c"
+    }
+  ]
+}]}
