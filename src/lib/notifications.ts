@@ -81,7 +81,12 @@ export function subscribeToNotifications(userId: string, callback: (notification
       } as NotificationData;
     });
     callback(notifications);
-  }, (error) => {
+  }, (error: any) => {
+    // Suppress permission-denied errors that happen naturally during logout
+    // when the auth token clears before React can unsubscribe the listener.
+    if (error.code === 'permission-denied') {
+      return;
+    }
     console.error('Error subscribing to notifications:', error);
   });
 }
