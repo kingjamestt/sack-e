@@ -12,6 +12,7 @@ export default function HeroCarousel() {
   const [events, setEvents] = useState<EventData[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [activeBannerIdx, setActiveBannerIdx] = useState<number | null>(null);
 
   useEffect(() => {
     async function loadEvents() {
@@ -110,20 +111,29 @@ export default function HeroCarousel() {
           />
           {/* Sharp Foreground Image */}
           <div className="absolute inset-0 flex flex-col items-center justify-center transition-transform duration-700">
-            <div className="relative w-full h-full max-w-7xl mx-auto flex items-end justify-center pb-24 md:pb-32">
+            <div 
+              className="relative w-full h-full max-w-7xl mx-auto flex items-center justify-center cursor-pointer"
+              onClick={() => setActiveBannerIdx(activeBannerIdx === idx ? null : idx)}
+            >
               <Image
                 src={event.imageUrl || '/placeholder-event.jpg'}
                 alt={event.title}
                 fill
                 priority={idx === 0}
-                className="object-contain md:object-cover group-hover:scale-[1.01] transition-transform duration-700 -z-10"
+                className={`object-contain md:object-cover transition-all duration-700 -z-10 ${activeBannerIdx === idx ? 'brightness-50 scale-[1.02]' : 'group-hover:scale-[1.01]'}`}
               />
-              <Link 
-                href={getEventLink(event)}
-                className="z-20 bg-primary/90 hover:bg-primary text-on-primary font-bold px-8 py-3 rounded-full backdrop-blur-md shadow-2xl hover:scale-105 hover:-translate-y-1 transition-all flex items-center gap-2 border border-white/20"
-              >
-                Get Tickets
-              </Link>
+              
+              {activeBannerIdx === idx && (
+                <div className="absolute inset-0 flex items-center justify-center animate-in fade-in zoom-in duration-300">
+                  <Link 
+                    href={getEventLink(event)}
+                    className="z-20 bg-primary/90 hover:bg-primary text-on-primary font-bold px-8 py-4 text-lg md:text-xl rounded-full backdrop-blur-md shadow-[0_0_40px_rgba(11,77,229,0.5)] hover:scale-105 hover:-translate-y-1 transition-all flex items-center gap-3 border border-white/20"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    Get Tickets
+                  </Link>
+                </div>
+              )}
             </div>
           </div>
         </div>
