@@ -140,7 +140,7 @@ export default function HeroCarousel() {
                       <div className="hidden md:block w-1.5 h-1.5 rounded-full bg-primary/50"></div>
                       <div className="flex items-center gap-2">
                         <MapPin size={18} className="text-primary" />
-                        <span>{event.location.name}</span>
+                        <span>{event.location}</span>
                       </div>
                     </div>
                     <Link 

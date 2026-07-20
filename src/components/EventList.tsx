@@ -108,7 +108,7 @@ export default function EventList({ viewMode = 'grid', searchQuery = '' }: { vie
       {Object.entries(groupedEvents).map(([monthYear, monthEvents]) => (
         <div key={monthYear} className="relative">
           {/* Sticky Month Header */}
-          <div className="sticky top-[80px] md:top-[96px] z-20 -mx-4 px-4 py-3 bg-surface/90 backdrop-blur-md border-b border-outline-variant/30 flex justify-between items-center rounded-xl shadow-sm mb-6">
+          <div className="sticky top-4 z-20 -mx-4 px-4 py-3 bg-surface/90 backdrop-blur-md border-b border-outline-variant/30 flex justify-between items-center rounded-xl shadow-sm mb-6">
             <h3 className="text-sm font-extrabold uppercase tracking-[0.2em] text-primary">
               {monthYear}
             </h3>
