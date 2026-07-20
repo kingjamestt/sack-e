@@ -130,7 +130,6 @@ export default function EventDetailsClient({
               priority
               className="object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-r from-surface/90 lg:from-transparent via-surface/40 lg:via-transparent to-transparent lg:to-surface-container" />
           </div>
 
           <div className="w-full lg:w-5/12 p-8 lg:p-12 flex flex-col justify-center relative backdrop-blur-xl bg-surface-container/90">
