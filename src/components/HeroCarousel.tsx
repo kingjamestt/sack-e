@@ -112,7 +112,7 @@ export default function HeroCarousel() {
           {/* Sharp Foreground Image */}
           <div className="absolute inset-0 flex flex-col items-center justify-center transition-transform duration-700">
             <div 
-              className="relative w-full h-full max-w-7xl mx-auto flex items-center justify-center cursor-pointer"
+              className="relative w-full h-full flex items-center justify-center cursor-pointer"
               onClick={() => setActiveBannerIdx(activeBannerIdx === idx ? null : idx)}
             >
               <Image
@@ -120,7 +120,7 @@ export default function HeroCarousel() {
                 alt={event.title}
                 fill
                 priority={idx === 0}
-                className={`object-contain md:object-cover transition-all duration-700 -z-10 ${activeBannerIdx === idx ? 'brightness-50 scale-[1.02]' : 'group-hover:scale-[1.01]'}`}
+                className={`object-cover transition-all duration-700 -z-10 ${activeBannerIdx === idx ? 'brightness-50 scale-[1.02]' : 'group-hover:scale-[1.01]'}`}
               />
               
               {activeBannerIdx === idx && (
