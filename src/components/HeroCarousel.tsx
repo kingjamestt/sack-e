@@ -85,7 +85,7 @@ export default function HeroCarousel({ initialEvents }: { initialEvents: EventDa
             src={event.imageUrl || '/placeholder-event.jpg'}
             alt={`${event.title} Background`}
             fill
-            priority={idx === 0}
+            priority
             className="object-cover opacity-40 blur-3xl scale-110"
           />
           {/* Sharp Foreground Image */}
@@ -98,7 +98,7 @@ export default function HeroCarousel({ initialEvents }: { initialEvents: EventDa
                 src={event.imageUrl || '/placeholder-event.jpg'}
                 alt={event.title}
                 fill
-                priority={idx === 0}
+                priority
                 className={`object-cover transition-all duration-700 -z-10 ${activeBannerIdx === idx ? 'brightness-50 scale-[1.02]' : 'group-hover:scale-[1.01]'}`}
               />
               
