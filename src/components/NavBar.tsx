@@ -255,10 +255,10 @@ export default function NavBar() {
               <input 
                 ref={searchInputRef}
                 type="text" 
-                placeholder="Search events, artists, venues..." 
+                placeholder="Search events, artists..." 
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full bg-surface-container border-2 border-primary/20 focus:border-primary text-on-surface text-xl md:text-3xl rounded-full py-6 md:py-8 pl-16 md:pl-20 pr-6 shadow-2xl focus:outline-none focus:ring-0 transition-colors" 
+                className="w-full bg-surface-container border-2 border-primary/20 focus:border-primary text-on-surface text-xl md:text-3xl rounded-full py-6 md:py-8 pl-14 md:pl-20 pr-32 md:pr-40 shadow-2xl focus:outline-none focus:ring-0 transition-colors placeholder:truncate" 
               />
               <button 
                 type="submit"
