@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { EventData } from '@/types';
 import { format, parseISO } from 'date-fns';
 import { getEventLink } from '@/lib/events';
+import Image from 'next/image';
 
 interface EventCardProps {
   event: EventData;
@@ -19,9 +20,12 @@ export default function EventCard({ event, innerRef }: EventCardProps) {
       <div className="absolute inset-0 bg-gradient-to-br from-white/60 to-white/10 z-0"></div>
 
       <div className="relative w-full h-1/2 overflow-hidden z-10">
-        <div 
-          className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
-          style={{ backgroundImage: `url('${event.imageUrl}')` }}
+        <Image
+          src={event.imageUrl || '/placeholder-event.jpg'}
+          alt={event.title}
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          className="object-cover transition-transform duration-700 group-hover:scale-105"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-90 transition-opacity duration-300 group-hover:opacity-100" />
         

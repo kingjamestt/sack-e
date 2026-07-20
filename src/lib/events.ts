@@ -38,14 +38,14 @@ export async function getEvents(lastDoc?: QueryDocumentSnapshot<DocumentData> | 
   const eventsRef = collection(db, 'events');
   let q;
 
-  const todayString = new Date().toISOString().split('T')[0];
+  const nowString = new Date().toISOString();
 
   // Closest first means ascending by date
-  // Also only fetch active events that are >= today
+  // Also only fetch active events that are >= now
   if (lastDoc) {
-    q = query(eventsRef, where('status', '==', 'active'), where('date', '>=', todayString), orderBy('date', 'asc'), startAfter(lastDoc), limit(EVENTS_PER_PAGE));
+    q = query(eventsRef, where('status', '==', 'active'), where('date', '>=', nowString), orderBy('date', 'asc'), startAfter(lastDoc), limit(EVENTS_PER_PAGE));
   } else {
-    q = query(eventsRef, where('status', '==', 'active'), where('date', '>=', todayString), orderBy('date', 'asc'), limit(EVENTS_PER_PAGE));
+    q = query(eventsRef, where('status', '==', 'active'), where('date', '>=', nowString), orderBy('date', 'asc'), limit(EVENTS_PER_PAGE));
   }
 
   const snapshot = await getDocs(q);
@@ -126,18 +126,18 @@ export async function getFeaturedEvents() {
 
   const snapshot = await getDocs(q);
   
-  const todayString = new Date().toISOString().split('T')[0];
+  const nowString = new Date().toISOString();
 
   let events: EventData[] = snapshot.docs.map(doc => {
     return { id: doc.id, ...doc.data() } as EventData;
   });
 
   // Filter out past events in memory to avoid needing a new composite index for isFeatured + date
-  events = events.filter(event => event.date >= todayString);
+  events = events.filter(event => event.date >= nowString);
 
   // If no featured events, fetch the closest 3 active events as fallback
   if (events.length === 0) {
-    const fallbackQ = query(eventsRef, where('status', '==', 'active'), where('date', '>=', todayString), orderBy('date', 'asc'), limit(3));
+    const fallbackQ = query(eventsRef, where('status', '==', 'active'), where('date', '>=', nowString), orderBy('date', 'asc'), limit(3));
     const fallbackSnap = await getDocs(fallbackQ);
     return fallbackSnap.docs.map(doc => ({ id: doc.id, ...doc.data() } as EventData));
   }
