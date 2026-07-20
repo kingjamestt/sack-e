@@ -124,11 +124,7 @@ export default function ProfilePage() {
 
   return (
     <main className="min-h-screen pt-24 md:pt-32 pb-20 px-6 max-w-4xl mx-auto">
-      <div className="mb-8">
-        <Link href="/" className="inline-flex items-center text-sm font-semibold text-on-surface-variant hover:text-primary transition-colors">
-          <ArrowLeft size={16} className="mr-2" /> Back to Home
-        </Link>
-      </div>
+
 
       <h1 className="font-display text-4xl font-bold mb-2 text-on-surface">Profile Dashboard</h1>
       <p className="text-on-surface-variant mb-10">Your profile information is displayed below.</p>

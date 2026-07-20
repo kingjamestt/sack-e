@@ -180,10 +180,7 @@ function LoginContent() {
       </div>
 
       <div className="relative z-10 w-full max-w-md">
-        <Link href="/" className="inline-flex items-center text-sm font-semibold text-on-surface-variant hover:text-primary transition-colors mb-8">
-          <ArrowLeft size={16} className="mr-2" /> Back to Home
-        </Link>
-        
+
         <div className="backdrop-blur-xl bg-surface-container/60 border border-black/10 p-8 rounded-3xl shadow-2xl">
           <h1 className="font-display text-3xl font-bold mb-2">Welcome Back</h1>
           <p className="text-on-surface-variant text-sm mb-8">Sign in to manage your tickets and events.</p>
@@ -355,6 +352,12 @@ function LoginContent() {
             <Link href="/signup" className="text-primary hover:text-primary-container font-bold transition-colors">Sign up</Link>
           </p>
         </div>
+      </div>
+      
+      <div className="absolute bottom-8 left-0 right-0 flex justify-center z-10">
+        <Link href="/" className="inline-flex items-center text-sm font-semibold text-on-surface-variant hover:text-primary transition-colors bg-surface-container/50 px-4 py-2 rounded-full backdrop-blur-md">
+          <ArrowLeft size={16} className="mr-2" /> Back to Home
+        </Link>
       </div>
     </main>
   );

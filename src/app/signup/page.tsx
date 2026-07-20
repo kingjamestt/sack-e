@@ -80,10 +80,7 @@ export default function SignUpPage() {
       </div>
 
       <div className="relative z-10 w-full max-w-md">
-        <Link href="/" className="inline-flex items-center text-sm font-semibold text-on-surface-variant hover:text-primary transition-colors mb-8">
-          <ArrowLeft size={16} className="mr-2" /> Back to Home
-        </Link>
-        
+
         <div className="backdrop-blur-xl bg-surface-container/60 border border-black/10 p-8 rounded-3xl shadow-2xl">
           <h1 className="font-display text-3xl font-bold mb-2">Create Account</h1>
           <p className="text-on-surface-variant text-sm mb-8">Join Sack-E Online to secure your tickets.</p>

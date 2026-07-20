@@ -74,10 +74,7 @@ export default function CreateEventPage() {
 
   return (
     <main className="min-h-screen pt-24 md:pt-32 pb-20 px-4 md:px-6 max-w-3xl mx-auto">
-      <Link href="/my-events" className="inline-flex items-center text-sm font-semibold text-on-surface-variant hover:text-primary transition-colors mb-8">
-        <ArrowLeft size={16} className="mr-2" /> Back to Dashboard
-      </Link>
-      
+
       <div className="mb-8">
         <h1 className="font-display font-bold text-4xl tracking-tight mb-4">Create Event</h1>
         <div className="bg-primary/5 border border-primary/20 p-4 rounded-xl">
@@ -191,6 +188,12 @@ export default function CreateEventPage() {
           {isLoading ? 'Creating Event...' : <><Save size={20} /> Create Event</>}
         </button>
       </form>
+
+      <div className="mt-12 pt-8 border-t border-outline-variant/20 flex justify-center">
+        <Link href="/my-events" className="inline-flex items-center text-sm font-semibold text-on-surface-variant hover:text-primary transition-colors">
+          <ArrowLeft size={16} className="mr-2" /> Back to Dashboard
+        </Link>
+      </div>
     </main>
   );
 }

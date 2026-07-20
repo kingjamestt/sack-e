@@ -241,9 +241,6 @@ export default function AdminEventDetailsPage({ params }: { params: Promise<{ id
 
   return (
     <main className="min-h-screen pt-24 md:pt-32 pb-20 px-4 md:px-6 max-w-6xl mx-auto">
-      <Link href="/my-events" className="inline-flex items-center text-sm font-semibold text-on-surface-variant hover:text-primary transition-colors mb-8">
-        <ArrowLeft size={16} className="mr-2" /> Back to Dashboard
-      </Link>
 
       <div className="flex gap-2 overflow-x-auto pb-4 hide-scrollbar">
           {(['overview', 'tickets', 'team'] as const).map(tab => (
@@ -854,6 +851,12 @@ export default function AdminEventDetailsPage({ params }: { params: Promise<{ id
           </div>
         </div>
       )}
+
+      <div className="mt-12 pt-8 flex justify-center pb-8 border-t border-white/5">
+        <Link href="/my-events" className="inline-flex items-center text-sm font-semibold text-on-surface-variant hover:text-primary transition-colors">
+          <ArrowLeft size={16} className="mr-2" /> Back to Dashboard
+        </Link>
+      </div>
     </main>
   );
 }
