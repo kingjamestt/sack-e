@@ -122,7 +122,7 @@ export default function CreateEventPage() {
               type="date" 
               value={date}
               onChange={(e) => setDate(e.target.value)}
-              className="w-full bg-surface-container-high border border-black/10 rounded-xl py-3 px-4 outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all text-on-surface [color-scheme:dark]"
+              className="w-full min-w-0 appearance-none bg-surface-container-high border border-black/10 rounded-xl py-3 px-4 outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all text-on-surface"
               required
             />
           </div>
@@ -132,7 +132,7 @@ export default function CreateEventPage() {
               type="time" 
               value={time}
               onChange={(e) => setTime(e.target.value)}
-              className="w-full bg-surface-container-high border border-black/10 rounded-xl py-3 px-4 outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all text-on-surface [color-scheme:dark]"
+              className="w-full min-w-0 appearance-none bg-surface-container-high border border-black/10 rounded-xl py-3 px-4 outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all text-on-surface"
               required
             />
           </div>

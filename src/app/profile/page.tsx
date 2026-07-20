@@ -207,7 +207,7 @@ export default function ProfilePage() {
                   type="date" 
                   value={profileData.dob}
                   onChange={(e) => setProfileData({...profileData, dob: e.target.value})}
-                  className="w-full bg-surface-container-high border border-black/10 rounded-xl py-3 px-4 text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all"
+                  className="w-full min-w-0 appearance-none bg-surface-container-high border border-black/10 rounded-xl py-3 px-4 text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all"
                 />
               </div>
               

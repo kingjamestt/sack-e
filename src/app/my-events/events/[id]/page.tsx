@@ -592,7 +592,7 @@ export default function AdminEventDetailsPage({ params }: { params: Promise<{ id
                     type="date" 
                     value={editForm.date || ''} 
                     onChange={e => setEditForm({...editForm, date: e.target.value})}
-                    className="w-full bg-black/20 border border-white/10 rounded-xl py-3 px-4 outline-none focus:border-primary transition-all text-on-surface [color-scheme:dark]"
+                    className="w-full min-w-0 appearance-none bg-black/20 border border-white/10 rounded-xl py-3 px-4 outline-none focus:border-primary transition-all text-on-surface [color-scheme:dark]"
                   />
                 </div>
                 <div>
@@ -601,7 +601,7 @@ export default function AdminEventDetailsPage({ params }: { params: Promise<{ id
                     type="time" 
                     value={editForm.time || ''} 
                     onChange={e => setEditForm({...editForm, time: e.target.value})}
-                    className="w-full bg-black/20 border border-white/10 rounded-xl py-3 px-4 outline-none focus:border-primary transition-all text-on-surface [color-scheme:dark]"
+                    className="w-full min-w-0 appearance-none bg-black/20 border border-white/10 rounded-xl py-3 px-4 outline-none focus:border-primary transition-all text-on-surface [color-scheme:dark]"
                   />
                 </div>
               </div>
