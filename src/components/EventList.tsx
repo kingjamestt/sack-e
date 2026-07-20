@@ -103,7 +103,7 @@ export default function EventList({ viewMode = 'grid', searchQuery = '' }: { vie
           return (
             <Fragment key={`fragment-${event.id}`}>
               {showSeparator && (
-                <div className="col-span-full sticky top-[72px] md:top-[88px] z-30 bg-background/90 backdrop-blur-md py-4 mt-8 mb-4 first:mt-0 -mx-4 px-4 shadow-sm border-y border-outline-variant/10">
+                <div className="col-span-full sticky top-[72px] md:top-[88px] z-30 py-2 mt-8 mb-2 first:mt-0 bg-background/80 backdrop-blur-md">
                   <h3 className="text-sm font-bold uppercase tracking-[0.2em] text-on-surface-variant opacity-80">
                     {currentMonthYear}
                   </h3>
