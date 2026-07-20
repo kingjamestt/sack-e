@@ -10,11 +10,15 @@ const ratelimit = new Ratelimit({
 });
 
 export async function proxy(request: NextRequest) {
-  const ip = request.headers.get('x-forwarded-for') || (request as any).ip || '127.0.0.1';
-  const { success } = await ratelimit.limit(ip);
+  try {
+    const ip = request.headers.get('x-forwarded-for') || (request as any).ip || '127.0.0.1';
+    const { success } = await ratelimit.limit(ip);
 
-  if (!success) {
-    return NextResponse.json({ error: 'Too many requests' }, { status: 429 });
+    if (!success) {
+      return NextResponse.json({ error: 'Too many requests' }, { status: 429 });
+    }
+  } catch (error) {
+    console.warn("Ratelimit failed (KV likely unconfigured):", error);
   }
 
   return NextResponse.next();
