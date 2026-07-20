@@ -12,8 +12,8 @@ import Link from 'next/link';
 
 interface PlatformMetrics {
   totalEvents: number;
-  totalGross: number;
-  totalFeteOnlineRevenue: number;
+  totalRevenue: number;
+  totalSackERevenue: number;
   totalBSWebRevenue: number;
   totalTicketsSold: number;
 }
@@ -37,8 +37,8 @@ export default function PlatformAdminDashboard() {
   const [activeTab, setActiveTab] = useState<'events' | 'users'>('events');
   const [metrics, setMetrics] = useState<PlatformMetrics>({
     totalEvents: 0,
-    totalGross: 0,
-    totalFeteOnlineRevenue: 0,
+    totalRevenue: 0,
+    totalSackERevenue: 0,
     totalBSWebRevenue: 0,
     totalTicketsSold: 0
   });
@@ -60,8 +60,8 @@ export default function PlatformAdminDashboard() {
 
   // Compute metrics dynamically based on selectedMonth
   useEffect(() => {
-    let gross = 0;
-    let feteOnlineRev = 0;
+    let totalRev = 0;
+    let sackeRev = 0;
     let bswebRev = 0;
     let ticketsSold = 0;
 
@@ -77,14 +77,14 @@ export default function PlatformAdminDashboard() {
 
     filteredReservations.forEach(data => {
       const total = data.total || 0;
-      gross += total;
+      totalRev += total;
       
       // Legacy Fallback: If old reservation without explicit fee splits
-      if (data.feteOnlineFee === undefined && data.bswebFee === undefined) {
-        feteOnlineRev += total * 0.045;
+      if (data.sackeFee === undefined && data.bswebFee === undefined) {
+        sackeRev += total * 0.045;
         bswebRev += total * 0.015;
       } else {
-        feteOnlineRev += data.feteOnlineFee || 0;
+        sackeRev += data.sackeFee || 0;
         bswebRev += data.bswebFee || 0;
       }
       
@@ -98,8 +98,8 @@ export default function PlatformAdminDashboard() {
 
     setMetrics({
       totalEvents: events.length,
-      totalGross: gross,
-      totalFeteOnlineRevenue: feteOnlineRev,
+      totalRevenue: totalRev,
+      totalSackERevenue: sackeRev,
       totalBSWebRevenue: bswebRev,
       totalTicketsSold: ticketsSold
     });
@@ -264,7 +264,7 @@ export default function PlatformAdminDashboard() {
           </div>
           <div>
             <p className="text-on-surface-variant text-xs font-bold uppercase tracking-wider mb-1">Total Gross Volume</p>
-            <h3 className="font-display text-3xl font-bold">${metrics.totalGross.toFixed(2)}</h3>
+            <h3 className="font-display text-3xl font-bold">${metrics.totalRevenue.toFixed(2)}</h3>
           </div>
         </div>
 
@@ -273,9 +273,9 @@ export default function PlatformAdminDashboard() {
           <div className="flex items-start justify-between mb-4">
             <div className="p-3 bg-primary/10 text-primary rounded-xl"><Wallet size={24} /></div>
           </div>
-          <div>
-            <p className="text-on-surface-variant text-xs font-bold uppercase tracking-wider mb-1">Platform Revenue</p>
-            <h3 className="font-display text-3xl font-bold text-primary">${metrics.totalFeteOnlineRevenue.toFixed(2)}</h3>
+          <div className="bg-surface/50 border border-white/5 p-6 rounded-2xl">
+            <h4 className="text-on-surface-variant text-sm font-semibold mb-2">Sack-E Rev</h4>
+            <h3 className="font-display text-3xl font-bold text-primary">${metrics.totalSackERevenue.toFixed(2)}</h3>
           </div>
         </div>
 

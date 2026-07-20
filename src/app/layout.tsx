@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { Inter, Montserrat } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/contexts/AuthContext";
@@ -59,8 +60,8 @@ export default function RootLayout({
             <p className="text-on-surface-variant font-medium text-sm">&copy; {new Date().getFullYear()} Sack-E Online. All rights reserved.</p>
             <div className="flex items-center gap-1.5 text-xs text-on-surface/60 font-bold tracking-widest uppercase mt-4">
               <span>Powered by</span>
-              <a href="https://bsweb.com" target="_blank" rel="noreferrer" className="opacity-90 hover:opacity-100 transition-all text-primary">
-                bsweb
+              <a href="https://www.bsweb.co" target="_blank" rel="noreferrer" className="opacity-90 hover:opacity-100 transition-all flex items-center">
+                <Image src="/bs-logo-original.png" alt="BS Web Solutions" width={60} height={20} className="object-contain" />
               </a>
             </div>
           </footer>

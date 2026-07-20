@@ -28,7 +28,7 @@ ${description}`;
     // Construct the mailto URL
     const subject = encodeURIComponent(`[${category || 'General'}] Organizer Support Request`);
     const encodedBody = encodeURIComponent(body);
-    const mailtoUrl = `mailto:support@feteonline.com?subject=${subject}&body=${encodedBody}`;
+    const mailtoUrl = `mailto:support@sack-e.com?subject=${subject}&body=${encodedBody}`;
 
     // Open the user's default email client
     window.location.href = mailtoUrl;

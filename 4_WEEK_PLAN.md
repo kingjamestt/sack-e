@@ -1,4 +1,4 @@
-# 4-Week Implementation Plan — Fete Online Ticketing Platform
+# 4-Week Implementation Plan — Sack-E Ticketing Platform
 
 **Client:** Shakir Harewood
 **Developer:** Brandon L. S. James (BS Web Solutions)

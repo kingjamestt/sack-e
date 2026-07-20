@@ -23,7 +23,7 @@ ${message}`;
     // Construct the mailto URL
     const subject = encodeURIComponent(`[${category || 'General'}] Inquiry from ${name}`);
     const encodedBody = encodeURIComponent(body);
-    const mailtoUrl = `mailto:support@feteonline.com?subject=${subject}&body=${encodedBody}`;
+    const mailtoUrl = `mailto:support@sack-e.com?subject=${subject}&body=${encodedBody}`;
 
     // Open the user's default email client
     window.location.href = mailtoUrl;
@@ -68,7 +68,7 @@ ${message}`;
                   <div>
                     <h3 className="text-xl font-bold mb-1">Email Us</h3>
                     <p className="text-on-surface-variant mb-1">For general inquiries and support.</p>
-                    <a href="mailto:support@feteonline.com" className="text-primary hover:underline font-semibold">support@feteonline.com</a>
+                    <a href="mailto:support@sack-e.com" className="text-primary hover:underline font-semibold">support@sack-e.com</a>
                   </div>
                 </div>
 

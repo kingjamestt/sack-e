@@ -441,10 +441,10 @@ export async function finalizeReservation(eventId: string, reservationId: string
      * - BSWeb Fee (Stripe/Payment): 1.5%
      * Organizers receive the remainder.
      */
-    const totalRevenue = resData.total || 0;
-    const feteOnlineFee = totalRevenue * 0.04;
+    // Distribute fees (e.g. 4% Sack-E, 1.5% BS Web, 94.5% Organizer)
+    const sackeFee = totalRevenue * 0.04;
     const bswebFee = totalRevenue * 0.015;
-    const organizerShare = totalRevenue - feteOnlineFee - bswebFee;
+    const organizerShare = totalRevenue - sackeFee - bswebFee;
     
     /**
      * Internal Logic: Read Phase
@@ -509,7 +509,7 @@ export async function finalizeReservation(eventId: string, reservationId: string
           tierId: item.tierId,
           name: item.name,
           price: item.price,
-          feteOnlineFee: item.price * 0.04,
+          sackeFee: item.price * 0.04,
           bswebFee: item.price * 0.015,
           organizerShare: item.price * 0.945,
           owner_id: resData.userId,
@@ -521,7 +521,7 @@ export async function finalizeReservation(eventId: string, reservationId: string
     
     transaction.update(reservationRef, { 
       status: 'completed',
-      feteOnlineFee,
+      sackeFee,
       bswebFee,
       organizerShare,
       completedAt: serverTimestamp()
