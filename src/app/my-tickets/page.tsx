@@ -11,7 +11,7 @@ import { format, parseISO, isBefore, startOfDay } from 'date-fns';
 import { Ticket as TicketIcon, Calendar, MapPin, Clock, ExternalLink, Lock } from 'lucide-react';
 import TicketDetailModal from '@/components/TicketDetailModal';
 import { TicketData, ReservationData } from '@/types';
-import { collectionGroup } from 'firebase/firestore';
+
 
 
 export default function TicketsPage() {
