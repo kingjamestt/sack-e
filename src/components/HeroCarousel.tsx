@@ -124,14 +124,33 @@ export default function HeroCarousel() {
               />
               
               {activeBannerIdx === idx && (
-                <div className="absolute inset-0 flex items-center justify-center animate-in fade-in zoom-in duration-300">
-                  <Link 
-                    href={getEventLink(event)}
-                    className="z-20 bg-primary/90 hover:bg-primary text-on-primary font-bold px-8 py-4 text-lg md:text-xl rounded-full backdrop-blur-md shadow-[0_0_40px_rgba(11,77,229,0.5)] hover:scale-105 hover:-translate-y-1 transition-all flex items-center gap-3 border border-white/20"
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    Get Tickets
-                  </Link>
+                <div className="absolute inset-0 flex flex-col items-center justify-center animate-in fade-in zoom-in duration-300 bg-black/60 backdrop-blur-sm p-6">
+                  <div className="flex flex-col items-center text-center max-w-3xl">
+                    <span className="bg-primary/20 text-primary-fixed border border-primary/30 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider mb-4">
+                      Featured Event
+                    </span>
+                    <h2 className="font-display font-extrabold text-4xl md:text-6xl text-white mb-4 drop-shadow-lg">
+                      {event.title}
+                    </h2>
+                    <div className="flex flex-col md:flex-row items-center gap-2 md:gap-6 text-white/90 mb-8 font-body">
+                      <div className="flex items-center gap-2">
+                        <Calendar size={18} className="text-primary" />
+                        <span>{format(parseISO(event.date), 'EEEE, MMMM d, yyyy')}</span>
+                      </div>
+                      <div className="hidden md:block w-1.5 h-1.5 rounded-full bg-primary/50"></div>
+                      <div className="flex items-center gap-2">
+                        <MapPin size={18} className="text-primary" />
+                        <span>{event.location.name}</span>
+                      </div>
+                    </div>
+                    <Link 
+                      href={getEventLink(event)}
+                      className="z-20 bg-primary hover:bg-primary-container text-on-primary font-bold px-10 py-4 text-lg md:text-xl rounded-full shadow-[0_0_40px_rgba(11,77,229,0.5)] hover:scale-105 hover:-translate-y-1 transition-all flex items-center gap-3 border border-white/20"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      Get Tickets
+                    </Link>
+                  </div>
                 </div>
               )}
             </div>
