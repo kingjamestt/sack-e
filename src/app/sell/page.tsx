@@ -3,7 +3,7 @@ import { ArrowRight, CheckCircle, BarChart3, Smartphone, DollarSign } from 'luci
 
 export default function SellPage() {
   return (
-    <div className="min-h-screen bg-background text-on-background font-sans">
+    <div className="min-h-screen pt-24 md:pt-32 bg-background text-on-background font-sans">
       {/* Hero Section */}
       <section className="relative overflow-hidden pt-32 pb-24 lg:pt-48 lg:pb-32 px-6">
         <div className="absolute inset-0 z-0 bg-gradient-to-b from-primary/5 to-transparent"></div>

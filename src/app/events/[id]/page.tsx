@@ -140,7 +140,7 @@ export default function EventDetailsPage({ params }: { params: Promise<{ id: str
   }
 
   return (
-    <main className="min-h-screen pb-24 relative">
+    <main className="min-h-screen pt-24 md:pt-32 pb-24 relative">
       <div className="fixed inset-0 z-0">
         <Image
           src={event.imageUrl || '/placeholder-event.jpg'}

@@ -173,7 +173,7 @@ function LoginContent() {
   };
 
   return (
-    <main className="min-h-screen flex items-center justify-center p-4 relative">
+    <main className="min-h-screen pt-24 md:pt-32 flex items-center justify-center px-4 pb-4 relative">
       <div className="absolute inset-0 bg-surface overflow-hidden pointer-events-none">
         <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-primary/20 blur-[120px] rounded-full" />
         <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] bg-secondary/20 blur-[120px] rounded-full" />

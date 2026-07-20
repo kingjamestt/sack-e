@@ -62,7 +62,7 @@ export default function SeedPage() {
   };
 
   return (
-    <div className="p-12">
+    <div className="p-12 pt-24 md:pt-32">
       <h1 className="text-2xl font-bold mb-4">Database Seeder</h1>
       <button 
         onClick={seedDatabase}

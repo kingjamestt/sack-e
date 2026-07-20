@@ -110,7 +110,7 @@ export default function TicketVerificationPage({ params }: { params: Promise<{ e
 
   if (loading || (isLoading && user)) {
     return (
-      <main className="min-h-screen pt-24 md:pt-28 pb-20 px-6 flex justify-center items-center">
+      <main className="min-h-screen pt-24 md:pt-32 pb-20 px-6 flex justify-center items-center">
         <div className="animate-pulse flex gap-2 items-center text-on-surface-variant">
           <ScanLine size={24} className="animate-bounce text-primary" />
           <span className="ml-2 text-sm font-semibold tracking-widest uppercase">Checking Ticket...</span>
@@ -124,7 +124,7 @@ export default function TicketVerificationPage({ params }: { params: Promise<{ e
   // Render Authorization Error
   if (error && error.includes('UNAUTHORIZED')) {
     return (
-      <main className="min-h-screen pt-24 md:pt-28 pb-20 px-4 flex justify-center items-center">
+      <main className="min-h-screen pt-24 md:pt-32 pb-20 px-4 flex justify-center items-center">
         <div className="bg-error/10 border border-error/20 rounded-3xl p-8 max-w-md w-full text-center">
           <ShieldAlert size={48} className="text-error mx-auto mb-4" />
           <h1 className="text-xl font-bold text-error mb-2">Access Denied</h1>
@@ -141,7 +141,7 @@ export default function TicketVerificationPage({ params }: { params: Promise<{ e
   const isAlreadyScanned = ticketData?.status === 'scanned' || ticketData?.status === 'used';
 
   return (
-    <main className="min-h-screen pt-24 md:pt-28 pb-20 px-4 flex justify-center items-center">
+    <main className="min-h-screen pt-24 md:pt-32 pb-20 px-4 flex justify-center items-center">
       <div className="bg-surface-container border border-black/10 rounded-3xl p-8 max-w-md w-full shadow-2xl relative overflow-hidden">
         
         {isSuccess ? (

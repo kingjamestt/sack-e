@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <main className="min-h-screen pb-20 overflow-x-hidden relative">
+    <main className="min-h-screen pt-24 md:pt-32 pb-20 overflow-x-hidden relative">
       {/* Subtle Mesh / Grid Background */}
       <div className="fixed inset-0 -z-10 bg-surface-container opacity-40">
         <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">

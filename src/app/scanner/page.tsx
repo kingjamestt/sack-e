@@ -120,7 +120,7 @@ export default function ScannerPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col font-sans">
+    <div className="min-h-screen pt-24 md:pt-32 bg-gray-50 flex flex-col font-sans">
       <Toaster position="bottom-center" />
       
       {/* Header */}

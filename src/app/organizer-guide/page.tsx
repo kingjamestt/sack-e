@@ -3,7 +3,7 @@ import { Info, AlertTriangle, ShieldCheck, WifiOff, RefreshCw } from 'lucide-rea
 
 export default function OrganizerGuidePage() {
   return (
-    <div className="min-h-screen bg-background text-on-background font-sans pb-24">
+    <div className="min-h-screen pt-24 md:pt-32 bg-background text-on-background font-sans pb-24">
       {/* Header */}
       <header className="bg-surface border-b border-outline-variant/30 sticky top-0 z-50">
         <div className="container mx-auto max-w-4xl px-6 py-6 flex items-center justify-between">

@@ -32,7 +32,7 @@ const faqs = [
 
 export default function FAQPage() {
   return (
-    <div className="min-h-screen bg-background text-on-background py-24">
+    <div className="min-h-screen pt-24 md:pt-32 bg-background text-on-background pb-24">
       <div className="container mx-auto px-6 max-w-4xl">
         <div className="text-center mb-16">
           <h1 className="text-4xl md:text-5xl font-extrabold mb-6 tracking-tight font-montserrat text-primary">

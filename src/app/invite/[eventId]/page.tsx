@@ -117,7 +117,7 @@ export default function InvitePage({ params }: { params: Promise<{ eventId: stri
   }
 
   return (
-    <main className="min-h-screen pt-24 md:pt-28 pb-20 px-4 flex justify-center items-center">
+    <main className="min-h-screen pt-24 md:pt-32 pb-20 px-4 flex justify-center items-center">
       <div className="bg-surface-container border border-black/10 rounded-3xl p-8 max-w-md w-full shadow-2xl relative overflow-hidden">
         {/* Glow */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-48 h-48 bg-primary/20 rounded-full blur-[100px] pointer-events-none" />

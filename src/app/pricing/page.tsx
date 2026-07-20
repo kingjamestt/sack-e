@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function PricingPage() {
   return (
-    <div className="min-h-screen bg-white text-slate-800">
+    <div className="min-h-screen pt-24 md:pt-32 bg-white text-slate-800">
       <div className="max-w-6xl mx-auto px-4 py-16 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h1 className="text-4xl font-extrabold text-blue-600 mb-4">Simple, Transparent Pricing</h1>

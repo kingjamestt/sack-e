@@ -112,7 +112,7 @@ export default function ProfilePage() {
 
   if (loading || !user) {
     return (
-      <main className="min-h-screen pt-24 px-6 flex justify-center items-center">
+      <main className="min-h-screen pt-24 md:pt-32 px-6 flex justify-center items-center">
         <div className="animate-pulse font-semibold tracking-widest uppercase text-on-surface-variant">Loading...</div>
       </main>
     );
@@ -123,7 +123,7 @@ export default function ProfilePage() {
   });
 
   return (
-    <main className="min-h-screen pt-24 pb-20 px-6 max-w-4xl mx-auto">
+    <main className="min-h-screen pt-24 md:pt-32 pb-20 px-6 max-w-4xl mx-auto">
       <div className="mb-8">
         <Link href="/" className="inline-flex items-center text-sm font-semibold text-on-surface-variant hover:text-primary transition-colors">
           <ArrowLeft size={16} className="mr-2" /> Back to Home

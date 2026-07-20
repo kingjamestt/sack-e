@@ -10,7 +10,7 @@ export default function DashboardRedirect() {
   }, [router]);
 
   return (
-    <div className="flex h-screen items-center justify-center bg-background text-on-surface">
+    <div className="flex h-screen pt-24 md:pt-32 items-center justify-center bg-background text-on-surface">
       <div className="animate-fadeIn">
         <p>Redirecting to your events...</p>
       </div>

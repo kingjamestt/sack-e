@@ -96,7 +96,7 @@ export default function AnalyticsDashboard() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#0a0a0e] text-white flex items-center justify-center">
+      <div className="min-h-screen pt-24 md:pt-32 bg-[#0a0a0e] text-white flex items-center justify-center">
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-500"></div>
       </div>
     );
@@ -156,7 +156,7 @@ export default function AnalyticsDashboard() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#0a0a0e] text-white p-6 md:p-10 font-sans selection:bg-purple-500/30">
+    <div className="min-h-screen pt-24 md:pt-32 bg-[#0a0a0e] text-white p-6 md:p-10 font-sans selection:bg-purple-500/30">
       <div className="max-w-7xl mx-auto space-y-8">
         
         {/* Header Section */}
