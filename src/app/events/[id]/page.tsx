@@ -152,10 +152,7 @@ export default function EventDetailsPage({ params }: { params: Promise<{ id: str
         <div className="absolute inset-0 bg-surface/80" />
       </div>
 
-      <div className="relative z-10 max-w-6xl mx-auto px-4 md:px-6 pt-6 lg:pt-10">
-        <Link href="/" className="inline-flex items-center text-sm font-semibold text-on-surface-variant hover:text-primary transition-colors mb-6 lg:mb-8">
-          <ArrowLeft size={16} className="mr-2" /> Back to Events
-        </Link>
+      <div className="relative z-10 max-w-6xl mx-auto px-4 md:px-6 pt-24 lg:pt-28">
 
         {/* Hero Section */}
         <div className="rounded-3xl overflow-hidden bg-surface-container border border-white/10 shadow-2xl mb-8 lg:mb-12 flex flex-col lg:flex-row min-h-[350px]">
@@ -435,6 +432,12 @@ export default function EventDetailsPage({ params }: { params: Promise<{ id: str
               )}
             </div>
           </div>
+        </div>
+
+        <div className="mt-8 flex justify-center">
+          <Link href="/" className="inline-flex items-center px-6 py-3 rounded-full bg-surface-container hover:bg-surface-container-high transition-colors text-on-surface font-semibold shadow-sm border border-white/5">
+            <ArrowLeft size={16} className="mr-2" /> Back to All Events
+          </Link>
         </div>
       </div>
     </main>

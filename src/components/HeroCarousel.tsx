@@ -110,16 +110,14 @@ export default function HeroCarousel() {
             className="object-cover opacity-40 blur-3xl scale-110"
           />
           {/* Sharp Foreground Image */}
-          <div className="absolute inset-0 flex items-center justify-center p-4 md:p-8">
-            <div className="relative w-full h-full max-w-5xl mx-auto shadow-2xl rounded-2xl overflow-hidden group-hover:scale-[1.02] transition-transform duration-500">
-              <Image
-                src={event.imageUrl || '/placeholder-event.jpg'}
-                alt={event.title}
-                fill
-                priority={idx === 0}
-                className="object-contain"
-              />
-            </div>
+          <div className="absolute inset-0 flex items-center justify-center group-hover:scale-[1.01] transition-transform duration-700">
+            <Image
+              src={event.imageUrl || '/placeholder-event.jpg'}
+              alt={event.title}
+              fill
+              priority={idx === 0}
+              className="object-contain"
+            />
           </div>
         </Link>
       ))}

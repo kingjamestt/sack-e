@@ -167,7 +167,7 @@ export default function CheckoutPage({ params }: { params: Promise<{ eventId: st
   }
 
   return (
-    <main className="min-h-screen pt-8 md:pt-24 pb-24 relative px-4">
+    <main className="min-h-screen pt-24 md:pt-28 pb-24 relative px-4">
       <div className="max-w-5xl mx-auto flex flex-col lg:flex-row gap-8">
         
         {/* Left Column - Event & Ticket Selection */}

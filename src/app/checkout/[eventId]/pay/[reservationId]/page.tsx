@@ -163,7 +163,7 @@ export default function PayReservationPage() {
   }
 
   return (
-    <main className="min-h-screen pt-8 md:pt-24 pb-24 relative px-4">
+    <main className="min-h-screen pt-24 md:pt-28 pb-24 relative px-4">
       <div className="max-w-3xl mx-auto flex flex-col gap-8">
         
         <div className="w-full">

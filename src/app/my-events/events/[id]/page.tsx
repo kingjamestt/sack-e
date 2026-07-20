@@ -221,7 +221,7 @@ export default function AdminEventDetailsPage({ params }: { params: Promise<{ id
 
   if (loading || authLoading) {
     return (
-      <main className="min-h-screen pt-8 md:pt-24 pb-20 px-6 max-w-5xl mx-auto flex justify-center">
+      <main className="min-h-screen pt-24 md:pt-28 pb-20 px-6 max-w-5xl mx-auto flex justify-center">
         <div className="animate-pulse flex gap-2 items-center text-on-surface-variant">
           <div className="w-2 h-2 bg-primary rounded-full"></div>
           <div className="w-2 h-2 bg-secondary rounded-full delay-75"></div>
@@ -240,7 +240,7 @@ export default function AdminEventDetailsPage({ params }: { params: Promise<{ id
   const totalRevenue = tiers.reduce((acc, tier) => acc + (tier.sold * tier.price), 0);
 
   return (
-    <main className="min-h-screen pt-8 md:pt-24 pb-20 px-4 md:px-6 max-w-6xl mx-auto">
+    <main className="min-h-screen pt-24 md:pt-28 pb-20 px-4 md:px-6 max-w-6xl mx-auto">
       <Link href="/my-events" className="inline-flex items-center text-sm font-semibold text-on-surface-variant hover:text-primary transition-colors mb-8">
         <ArrowLeft size={16} className="mr-2" /> Back to Dashboard
       </Link>

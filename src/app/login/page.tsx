@@ -363,7 +363,7 @@ function LoginContent() {
 export default function LoginPage() {
   return (
     <Suspense fallback={
-      <main className="min-h-screen pt-8 md:pt-24 pb-20 px-6 flex justify-center items-center">
+      <main className="min-h-screen pt-24 md:pt-28 pb-20 px-6 flex justify-center items-center">
         <div className="text-on-surface-variant text-sm font-semibold tracking-widest uppercase animate-pulse">
           Loading...
         </div>

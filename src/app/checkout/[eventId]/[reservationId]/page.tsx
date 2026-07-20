@@ -147,7 +147,7 @@ export default function CheckoutPage() {
   if (!event || !reservation) return null;
 
   return (
-    <main className="min-h-screen pt-8 md:pt-24 pb-24 relative px-4">
+    <main className="min-h-screen pt-24 md:pt-28 pb-24 relative px-4">
       <div className="max-w-4xl mx-auto flex flex-col lg:flex-row gap-8">
         
         {/* Left Column - Event Summary */}

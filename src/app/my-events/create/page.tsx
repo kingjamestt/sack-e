@@ -73,7 +73,7 @@ export default function CreateEventPage() {
   if (loading || !user) return null;
 
   return (
-    <main className="min-h-screen pt-8 md:pt-24 pb-20 px-4 md:px-6 max-w-3xl mx-auto">
+    <main className="min-h-screen pt-24 md:pt-28 pb-20 px-4 md:px-6 max-w-3xl mx-auto">
       <Link href="/my-events" className="inline-flex items-center text-sm font-semibold text-on-surface-variant hover:text-primary transition-colors mb-8">
         <ArrowLeft size={16} className="mr-2" /> Back to Dashboard
       </Link>

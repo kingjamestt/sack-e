@@ -123,7 +123,7 @@ export default function TicketsPage() {
 
   if (loading || (isLoading && user)) {
     return (
-      <main className="min-h-screen pt-8 md:pt-24 pb-20 px-6 max-w-5xl mx-auto flex justify-center">
+      <main className="min-h-screen pt-24 md:pt-28 pb-20 px-6 max-w-5xl mx-auto flex justify-center">
         <div className="animate-pulse flex gap-2 items-center text-on-surface-variant">
           <div className="w-2 h-2 bg-primary rounded-full"></div>
           <div className="w-2 h-2 bg-secondary rounded-full delay-75"></div>
@@ -143,7 +143,7 @@ export default function TicketsPage() {
   const displayedTickets = activeTab === 'upcoming' ? upcomingTickets : pastTickets;
 
   return (
-    <main className="min-h-screen pt-8 md:pt-24 pb-20 px-4 md:px-6 max-w-5xl mx-auto">
+    <main className="min-h-screen pt-24 md:pt-28 pb-20 px-4 md:px-6 max-w-5xl mx-auto">
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
         <div>
           <h1 className="font-display font-bold text-4xl md:text-5xl tracking-tight mb-2">My Tickets</h1>
