@@ -78,7 +78,14 @@ export default function CreateEventPage() {
         <ArrowLeft size={16} className="mr-2" /> Back to Dashboard
       </Link>
       
-      <h1 className="font-display font-bold text-4xl tracking-tight mb-8">Create Event</h1>
+      <div className="mb-8">
+        <h1 className="font-display font-bold text-4xl tracking-tight mb-4">Create Event</h1>
+        <div className="bg-primary/5 border border-primary/20 p-4 rounded-xl">
+          <p className="text-sm text-on-surface-variant">
+            <strong>Pro Tip:</strong> Fill out the details below to launch your event. You'll be able to add ticket tiers and manage availability on the next page after your event is created.
+          </p>
+        </div>
+      </div>
 
       <form onSubmit={handleSubmit} className="space-y-6 bg-surface-container border border-black/10 p-6 md:p-8 rounded-3xl">
         {error && (

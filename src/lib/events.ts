@@ -247,7 +247,7 @@ export async function reserveTickets(eventId: string, items: CartItem[], userId:
     if (eventDoc.data().salesPaused) throw new Error("Sales for this event are temporarily paused.");
     
     const tierDocs = [];
-    let total = 0;
+    let subtotal = 0;
     
     for (const item of items) {
       if (item.quantity <= 0) continue;
@@ -261,7 +261,7 @@ export async function reserveTickets(eventId: string, items: CartItem[], userId:
         throw new Error(`Sales for ticket tier ${item.name} are temporarily paused.`);
       }
       tierDocs.push({ ref: tierRef, doc: tierDoc, requestQuantity: item.quantity, price: item.price });
-      total += item.price * item.quantity;
+      subtotal += item.price * item.quantity;
     }
     
     if (tierDocs.length === 0) {
@@ -304,7 +304,7 @@ export async function reserveTickets(eventId: string, items: CartItem[], userId:
     transaction.set(reservationRef, {
       userId,
       items: items.map(item => ({ tierId: item.tierId, quantity: item.quantity, name: item.name, price: item.price })),
-      total,
+      total: subtotal * 1.07,
       status: 'pending',
       createdAt: serverTimestamp(),
       expiresAt: expiresAtDate.toISOString()
@@ -325,17 +325,17 @@ export async function requestTickets(eventId: string, items: CartItem[], userId:
   if (!eventDoc.exists()) throw new Error("Event does not exist.");
   if (eventDoc.data().salesPaused) throw new Error("Sales for this event are temporarily paused.");
   
-  let total = 0;
+  let subtotal = 0;
   for (const item of items) {
     if (item.quantity <= 0) continue;
     const tierRef = doc(db, `events/${eventId}/ticketTiers/${item.tierId}`);
     const tierDoc = await getDoc(tierRef);
     if (!tierDoc.exists()) throw new Error(`Ticket tier ${item.name} does not exist!`);
     if (tierDoc.data().salesPaused) throw new Error(`Sales for ticket tier ${item.name} are temporarily paused.`);
-    total += item.price * item.quantity;
+    subtotal += item.price * item.quantity;
   }
   
-  if (total === 0) throw new Error("No tickets selected.");
+  if (subtotal === 0) throw new Error("No tickets selected.");
 
   const reservationRef = doc(collection(db, `events/${eventId}/reservations`));
   
@@ -345,7 +345,7 @@ export async function requestTickets(eventId: string, items: CartItem[], userId:
     eventId,
     committeeMemberId,
     items: items.map(item => ({ tierId: item.tierId, quantity: item.quantity, name: item.name, price: item.price })),
-    totalAmount: total,
+    totalAmount: subtotal * 1.07,
     status: 'requested',
     createdAt: serverTimestamp()
   });
@@ -442,17 +442,18 @@ export async function finalizeReservation(eventId: string, reservationId: string
      * Organizers receive the remainder.
      */
     const totalRevenue = resData.total || 0;
-    // Distribute fees (e.g. 4% Sack-E, 1.5% BS Web, 94.5% Organizer)
-    const sackeFee = totalRevenue * 0.04;
-    const bswebFee = totalRevenue * 0.015;
-    const organizerShare = totalRevenue - sackeFee - bswebFee;
+    const items = resData.items || [];
+    
+    // Organizer gets 100% of the base ticket price, Sack-E gets the 7% markup.
+    const organizerShare = items.reduce((sum: number, item: any) => sum + (item.price * item.quantity), 0);
+    const sackeFee = totalRevenue - organizerShare;
+    const bswebFee = 0;
     
     /**
      * Internal Logic: Read Phase
      * Retrieve all associated ticket tier documents corresponding to the items in the reservation.
      */
     // Read all tier documents first
-    const items = resData.items || [];
     const tierDocs = [];
     for (const item of items) {
       const tierRef = doc(db, `events/${eventId}/ticketTiers/${item.tierId}`);
@@ -510,9 +511,9 @@ export async function finalizeReservation(eventId: string, reservationId: string
           tierId: item.tierId,
           name: item.name,
           price: item.price,
-          sackeFee: item.price * 0.04,
-          bswebFee: item.price * 0.015,
-          organizerShare: item.price * 0.945,
+          sackeFee: item.price * 0.07,
+          bswebFee: 0,
+          organizerShare: item.price,
           owner_id: resData.userId,
           status: 'active',
           createdAt: serverTimestamp()

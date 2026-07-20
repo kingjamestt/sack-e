@@ -147,7 +147,12 @@ export default function TicketsPage() {
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
         <div>
           <h1 className="font-display font-bold text-4xl md:text-5xl tracking-tight mb-2">My Tickets</h1>
-          <p className="text-on-surface-variant font-sans">Manage your upcoming and past event passes.</p>
+          <p className="text-on-surface-variant font-sans mb-4">Manage your upcoming and past event passes.</p>
+          <div className="bg-primary/10 border-l-4 border-primary p-3 rounded-r-xl max-w-lg">
+            <p className="text-xs text-on-surface-variant">
+              <strong>Need help?</strong> Tap on any ticket to view details, transfer it to a friend, or access the full QR code. The QR code will be scanned at the entrance.
+            </p>
+          </div>
         </div>
         
         <div className="flex bg-surface-container rounded-xl p-1 border border-white/5">

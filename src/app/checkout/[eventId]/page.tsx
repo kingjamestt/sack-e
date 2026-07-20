@@ -65,7 +65,9 @@ export default function CheckoutPage({ params }: { params: Promise<{ eventId: st
   };
 
   const selectedTiers = tiers.filter(t => (quantities[t.id] || 0) > 0);
-  const totalAmount = selectedTiers.reduce((sum, tier) => sum + tier.price * quantities[tier.id], 0);
+  const subtotal = selectedTiers.reduce((sum, tier) => sum + tier.price * quantities[tier.id], 0);
+  const serviceFee = subtotal * 0.07;
+  const totalAmount = subtotal + serviceFee;
 
   const handlePayment = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -178,7 +180,12 @@ export default function CheckoutPage({ params }: { params: Promise<{ eventId: st
           </Link>
           
           <div className="bg-surface-container rounded-3xl p-6 border border-black/10">
-            <h2 className="text-2xl font-bold mb-4">Select Tickets</h2>
+            <h2 className="text-2xl font-bold mb-2">Select Tickets</h2>
+            <div className="bg-primary/5 border border-primary/20 p-3 rounded-xl mb-4">
+              <p className="text-xs text-on-surface-variant">
+                <strong>How it works:</strong> Choose your ticket quantities below. Once confirmed and paid, tickets will be instantly sent to your email and visible in "My Tickets".
+              </p>
+            </div>
             
             <div className="flex gap-4 mb-8 pb-6 border-b border-black/10">
               <div className="w-24 h-24 rounded-xl relative overflow-hidden shrink-0">
@@ -256,6 +263,10 @@ export default function CheckoutPage({ params }: { params: Promise<{ eventId: st
                       <span className="font-semibold">${(tier.price * quantities[tier.id]).toFixed(2)}</span>
                     </div>
                   ))}
+                  <div className="flex justify-between items-center text-sm text-on-surface-variant pt-2 border-t border-black/5">
+                    <span>Service Fee</span>
+                    <span>${serviceFee.toFixed(2)}</span>
+                  </div>
                   <div className="flex justify-between items-center text-lg font-bold pt-4 border-t border-black/10">
                     <span>Total</span>
                     <span className="text-primary">${totalAmount.toFixed(2)}</span>

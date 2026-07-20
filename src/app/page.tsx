@@ -1,5 +1,6 @@
 import EventsSection from "@/components/EventsSection";
 import HeroCarousel from "@/components/HeroCarousel";
+import BackToTop from "@/components/BackToTop";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -21,6 +22,8 @@ export default function Home() {
       <section aria-label="Upcoming Events">
         <EventsSection />
       </section>
+      
+      <BackToTop />
     </main>
   );
 }

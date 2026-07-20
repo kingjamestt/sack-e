@@ -141,6 +141,12 @@ export default function AdminDashboard() {
         <div>
           <h1 className="font-display font-bold text-4xl md:text-5xl tracking-tight mb-2">Organizer Dashboard</h1>
           <p className="text-on-surface-variant font-sans">Manage your events, ticket tiers, and sales.</p>
+          <div className="mt-4 bg-primary/10 border-l-4 border-primary p-4 rounded-r-xl max-w-2xl">
+            <h3 className="font-bold text-primary mb-1">Welcome to your command center</h3>
+            <p className="text-sm text-on-surface-variant">
+              Here you can create new events, track ticket sales in real-time, and get support. Click on any of your events below to manage ticket tiers, scan attendees, or view detailed analytics.
+            </p>
+          </div>
         </div>
         <div className="flex flex-wrap items-center gap-3">
           <select 

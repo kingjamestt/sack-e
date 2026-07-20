@@ -15,3 +15,7 @@ When invoking subagents (`invoke_subagent`), you MUST adhere to the following be
 1. **Pre-Deployment Build Checks:** Before asking the user to push code to GitHub for a Vercel deployment, you MUST proactively run `npm run build` locally within the sandbox environment to ensure the build compiles successfully. This guarantees that missing modules, TypeScript errors, and compilation failures are caught and fixed *before* reaching Vercel.
 
 2. **Next.js Middleware Convention:** For Next.js 16.2+, the `middleware.ts` file convention is deprecated. You MUST use the filename `proxy.ts` (e.g., `src/proxy.ts`) instead of `middleware.ts` when configuring edge rate limiting or request proxies.
+
+3. **Node Version Requirement:** The default sandbox Node version (20.8.0) is incompatible with Next.js 16.2.10. Before running `npm run build` or any other node scripts via the `run_command` tool, you MUST switch to Node 22. 
+   - You must run these commands outside the sandbox (`BypassSandbox: true`) because the sandbox blocks access to the `~/.nvm` directory.
+   - Use the following command structure to execute node scripts: `bash -c "source ~/.nvm/nvm.sh && nvm use 22 && npm run <script>"`

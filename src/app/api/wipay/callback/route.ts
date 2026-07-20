@@ -86,11 +86,12 @@ async function finalizeReservationAdmin(eventId: string, reservationId: string, 
     
     const isApprovedRequest = resData.status === 'approved';
     const totalRevenue = resData.total || resData.totalAmount || 0;
-    const sackeFee = totalRevenue * 0.04;
-    const bswebFee = totalRevenue * 0.015;
-    const organizerShare = totalRevenue - sackeFee - bswebFee;
-    
     const items = resData.items || [];
+    
+    const organizerShare = items.reduce((sum: number, item: any) => sum + (item.price * item.quantity), 0);
+    const sackeFee = totalRevenue - organizerShare;
+    const bswebFee = 0;
+    
     const tierDocs = [];
     
     for (const item of items) {
@@ -135,9 +136,9 @@ async function finalizeReservationAdmin(eventId: string, reservationId: string, 
           tierId: item.tierId,
           name: item.name,
           price: item.price,
-          sackeFee: item.price * 0.04,
-          bswebFee: item.price * 0.015,
-          organizerShare: item.price * 0.945,
+          sackeFee: item.price * 0.07,
+          bswebFee: 0,
+          organizerShare: item.price,
           owner_id: resData.userId,
           status: 'active',
           createdAt: FieldValue.serverTimestamp()
