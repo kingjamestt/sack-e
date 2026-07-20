@@ -214,7 +214,7 @@ export default function CheckoutPage() {
                 <input type="hidden" name="order_id" value={`${eventId}_${reservationId}`} />
                 <input type="hidden" name="total" value={reservation.total.toFixed(2)} />
                 {/* We need the absolute URL for the callback */}
-                <input type="hidden" name="response_url" value={`${origin}/checkout/callback`} />
+                <input type="hidden" name="response_url" value={`${origin}/api/wipay/callback`} />
                 <input type="hidden" name="fee_structure" value="customer_pay" />
                 <input type="hidden" name="method" value="credit_card_co" />
                 
@@ -242,7 +242,7 @@ export default function CheckoutPage() {
                 <input type="hidden" name="origin" value={(process.env.NEXT_PUBLIC_APP_NAME || 'Fete_Online').replace(/[^a-zA-Z0-9-_]/g, '_')} />
                 <input type="hidden" name="order_id" value={`${eventId}_${reservationId}`} />
                 <input type="hidden" name="total" value={reservation.total.toFixed(2)} />
-                <input type="hidden" name="response_url" value={`${origin}/checkout/callback`} />
+                <input type="hidden" name="response_url" value={`${origin}/api/wipay/callback`} />
                 <input type="hidden" name="fee_structure" value="customer_pay" />
                 <input type="hidden" name="method" value="voucher" /> {/* Could be linx or debit, using voucher for variety */}
                 
@@ -264,7 +264,7 @@ export default function CheckoutPage() {
               {/* DEV ONLY MOCK BUTTON */}
               {process.env.NODE_ENV === 'development' && (
                 <button 
-                  onClick={() => window.location.href = `/checkout/callback?status=success&order_id=${eventId}_${reservationId}&transaction_id=DEV-MOCK`}
+                  onClick={() => window.location.href = `/api/wipay/callback?status=success&order_id=${eventId}_${reservationId}&transaction_id=DEV-MOCK`}
                   className="w-full mt-8 py-4 px-6 rounded-2xl bg-surface/50 border border-dashed border-error/50 hover:bg-error/10 hover:border-error transition-all flex items-center justify-between"
                 >
                   <div className="text-left">

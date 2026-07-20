@@ -27,15 +27,8 @@ function CallbackContent() {
     // Only run if successful, we have an orderId, auth is finished loading, and we have a user
     if (isSuccess && orderId && !loading && user && !isFinalizing) {
       setIsFinalizing(true);
-      const parts = orderId.split('_');
-      if (parts.length >= 2) {
-        const eventId = parts[0];
-        const resId = parts[1];
-        // Import dynamically so we don't blow up client bundle with firestore if we don't need to
-        import('@/lib/events').then(({ finalizeReservation }) => {
-          finalizeReservation(eventId, resId).catch(console.error);
-        });
-      }
+      // The reservation is now finalized securely on the server via the WiPay webhook!
+      // We don't do anything here except wait for the user to click the button.
     }
   }, [isSuccess, orderId, loading, user, isFinalizing]);
 

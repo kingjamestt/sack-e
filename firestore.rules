@@ -51,7 +51,7 @@ service cloud.firestore {
       match /ticketTiers/{tierId} {
         allow read: if true;
         allow write: if isAdmin() || isOrganizer(eventId);
-        allow update: if isAuthenticated(); // Needed for users to reserve/purchase tickets
+        allow update: if isAuthenticated() && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['reserved']); // Only allow modifying reserved count client-side
       }
       
       // Team Subcollection
@@ -69,7 +69,7 @@ service cloud.firestore {
       match /reservations/{reservationId} {
         allow read: if isAuthenticated() && (resource == null || request.auth.uid == resource.data.userId || isAdmin());
         allow create: if isAuthenticated() && request.auth.uid == request.resource.data.userId;
-        allow update: if isAuthenticated() && (request.auth.uid == resource.data.userId || isAdmin());
+        allow update: if isAuthenticated() && isAdmin();
         allow delete: if isAuthenticated() && (request.auth.uid == resource.data.userId || isAdmin());
       }
     }
@@ -94,10 +94,7 @@ service cloud.firestore {
       );
       
       // Creating/deleting tickets restricted to admins/owners logic from elsewhere, but keeping it simple:
-      allow create, delete: if isAuthenticated() && (
-        request.resource.data.owner_id == request.auth.uid || 
-        isAdmin()
-      );
+      allow create, delete: if isAdmin();
 
       // Updates
       allow update: if isAuthenticated() && (
