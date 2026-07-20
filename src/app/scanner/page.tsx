@@ -2,9 +2,9 @@
 
 import { useEffect, useRef, useState } from "react";
 import { BrowserMultiFormatReader } from "@zxing/browser";
-import { doc, updateDoc, collection, query, getDocs, where, waitForPendingWrites } from "firebase/firestore";
+import { doc, updateDoc, collection, query, getDocs, where } from "firebase/firestore";
 import { db } from "@/lib/firebase";
-import { Wifi, WifiOff, RefreshCw, CheckCircle, AlertTriangle, Play, Square } from "lucide-react";
+import { Wifi, WifiOff, RefreshCw, CheckCircle, Play, Square } from "lucide-react";
 import toast, { Toaster } from "react-hot-toast";
 
 export default function ScannerPage() {
@@ -23,14 +23,7 @@ export default function ScannerPage() {
     
     const handleOnline = () => {
       setIsOnline(true);
-      toast.success("Back online. Syncing pending scans...");
-      
-      // Wait for Firestore to push all pending writes
-      waitForPendingWrites(db).then(() => {
-        toast.success("All offline scans pushed successfully!");
-      }).catch(err => {
-        console.error("Error waiting for pending writes:", err);
-      });
+      toast.success("Back online. Pending scans will sync automatically.");
     };
     
     const handleOffline = () => {
