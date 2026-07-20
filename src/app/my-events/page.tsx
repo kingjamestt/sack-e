@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useRouter } from 'next/navigation';
 import { collection, query, where, getDocs, orderBy, collectionGroup, doc, getDoc } from 'firebase/firestore';
+import Image from 'next/image';
 import { db } from '@/lib/firebase';
 import Link from 'next/link';
 import { Plus, Calendar, MapPin, Users, Activity, Megaphone, LifeBuoy } from 'lucide-react';
@@ -202,10 +203,9 @@ export default function AdminDashboard() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {events.map((event) => (
             <Link key={event.id} href={`/my-events/events/${event.id}`} className="group bg-surface-container border border-black/10 rounded-2xl overflow-hidden hover:border-primary/50 transition-colors block relative">
-              <div 
-                className="h-40 bg-cover bg-center"
-                style={{ backgroundImage: `url('${event.imageUrl}')` }}
-              />
+              <div className="h-40 relative overflow-hidden">
+                <Image src={event.imageUrl || '/placeholder-event.jpg'} alt={event.title} fill className="object-cover" />
+              </div>
               <div className="p-5">
                 <div className="flex justify-between items-start mb-2 gap-3">
                   <h3 className="font-display font-bold text-lg line-clamp-1 flex-1">{event.title}</h3>

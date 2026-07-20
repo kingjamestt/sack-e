@@ -6,7 +6,8 @@ import { getEvent, getEventLink, TicketTier, getTicketTiers, reserveTickets, fin
 import { EventData, TeamMember } from '@/types';
 import { getTeamMembers } from '@/lib/team';
 import { useAuth } from '@/contexts/AuthContext';
-import { CreditCard, AlertCircle, CheckCircle2, Ticket, Users } from 'lucide-react';
+import { ArrowLeft, CreditCard, Loader2, Minus, Plus, AlertCircle, CheckCircle2, Ticket, Users } from 'lucide-react';
+import Image from 'next/image';
 import Link from 'next/link';
 
 export default function CheckoutPage({ params }: { params: Promise<{ eventId: string }> }) {
@@ -180,10 +181,9 @@ export default function CheckoutPage({ params }: { params: Promise<{ eventId: st
             <h2 className="text-2xl font-bold mb-4">Select Tickets</h2>
             
             <div className="flex gap-4 mb-8 pb-6 border-b border-black/10">
-              <div 
-                className="w-24 h-24 rounded-xl bg-cover bg-center shrink-0"
-                style={{ backgroundImage: `url('${event.imageUrl}')` }}
-              />
+              <div className="w-24 h-24 rounded-xl relative overflow-hidden shrink-0">
+                <Image src={event.imageUrl || '/placeholder-event.jpg'} alt={event.title} fill className="object-cover" />
+              </div>
               <div>
                 <h3 className="font-bold text-lg leading-tight">{event.title}</h3>
                 <p className="text-sm text-on-surface-variant mt-1">{event.date} • {event.time}</p>

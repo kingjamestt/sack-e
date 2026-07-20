@@ -4,7 +4,8 @@ import { useEffect, useState } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import { getEvent, releaseTickets, CartItem } from '@/lib/events';
 import { EventData } from '@/types';
-import { Timer, ArrowLeft, CreditCard, Wallet } from 'lucide-react';
+import { Loader2, CheckCircle, CreditCard, Lock, ArrowLeft, Timer, Wallet } from 'lucide-react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { doc, onSnapshot } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
@@ -162,10 +163,9 @@ export default function CheckoutPage() {
             <h2 className="text-2xl font-bold mb-4">Order Summary</h2>
             
             <div className="flex gap-4 mb-6 pb-6 border-b border-black/10">
-              <div 
-                className="w-24 h-24 rounded-xl bg-cover bg-center"
-                style={{ backgroundImage: `url('${event.imageUrl}')` }}
-              />
+              <div className="w-24 h-24 rounded-xl relative overflow-hidden shrink-0">
+                <Image src={event.imageUrl || '/placeholder-event.jpg'} alt={event.title} fill className="object-cover" />
+              </div>
               <div>
                 <h3 className="font-bold text-lg leading-tight">{event.title}</h3>
                 <p className="text-sm text-on-surface-variant mt-1">{event.location}</p>

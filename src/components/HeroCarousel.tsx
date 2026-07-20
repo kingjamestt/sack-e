@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { ChevronLeft, ChevronRight, Calendar, MapPin } from 'lucide-react';
 import { getFeaturedEvents, getEventLink } from '@/lib/events';
 import { EventData } from '@/types';
@@ -56,9 +57,12 @@ export default function HeroCarousel() {
   if (events.length === 0) {
     return (
       <section className="relative w-full h-[550px] md:h-[614px] min-h-[500px] flex flex-col justify-end pb-16 overflow-hidden animate-fadeIn group">
-        <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-95 transition-transform duration-1000 group-hover:scale-105"
-          style={{ backgroundImage: `url('/hero.jpg')` }}
+        <Image 
+          src="/hero.jpg"
+          alt="Hero"
+          fill
+          priority
+          className="object-cover opacity-95 transition-transform duration-1000 group-hover:scale-105"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-on-background/95 via-on-background/60 to-transparent z-10" />
         <div className="absolute inset-0 bg-gradient-to-r from-on-background/70 to-transparent hidden md:block z-10" />
@@ -94,9 +98,16 @@ export default function HeroCarousel() {
       {events.map((event, idx) => (
         <div 
           key={event.id}
-          className={`absolute inset-0 bg-cover bg-center bg-no-repeat transition-all duration-1000 ease-in-out ${idx === currentIndex ? 'opacity-100 z-0 scale-100' : 'opacity-0 -z-10 scale-105'}`}
-          style={{ backgroundImage: `url('${event.imageUrl}')` }}
-        />
+          className={`absolute inset-0 transition-all duration-1000 ease-in-out ${idx === currentIndex ? 'opacity-100 z-0 scale-100' : 'opacity-0 -z-10 scale-105'}`}
+        >
+          <Image
+            src={event.imageUrl || '/placeholder-event.jpg'}
+            alt={event.title}
+            fill
+            priority={idx === 0}
+            className="object-cover"
+          />
+        </div>
       ))}
       
       {/* Dark Overlay for readability */}

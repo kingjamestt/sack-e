@@ -2,6 +2,7 @@
 
 import { useEffect, useState, use } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { ArrowLeft, Settings, Activity, Users, Edit3, Check, X, Calendar, MapPin, Clock, Eye } from 'lucide-react';
 import { getEvent, getTicketTiers, TicketTier, getEventLink } from '@/lib/events';
@@ -288,10 +289,9 @@ export default function AdminEventDetailsPage({ params }: { params: Promise<{ id
         {activeTab === 'overview' && (
         <div className="w-full lg:w-1/3 space-y-6">
           <div className="bg-surface-container border border-white/10 rounded-3xl p-6 shadow-xl relative overflow-hidden">
-            <div 
-              className="absolute top-0 left-0 right-0 h-32 bg-cover bg-center opacity-20"
-              style={{ backgroundImage: `url('${event.imageUrl}')` }}
-            />
+            <div className="absolute top-0 left-0 right-0 h-32 opacity-20 overflow-hidden">
+              <Image src={event.imageUrl || '/placeholder-event.jpg'} alt={event.title} fill className="object-cover" />
+            </div>
             
             <div className="relative pt-20">
               <div className="flex justify-between items-start mb-2">

@@ -1,6 +1,7 @@
 'use client';
 
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter, usePathname } from "next/navigation";
 import { useAuth } from "@/contexts/AuthContext";
 import { useState, useRef, useEffect } from "react";
@@ -92,7 +93,7 @@ export default function NavBar() {
   return (
     <nav className="bg-surface/90 backdrop-blur-xl w-full sticky top-0 z-50 border-b border-outline-variant/30 shadow-sm flex justify-between items-center px-6 md:px-8 py-4 max-w-full">
       <Link href="/" className="flex items-center gap-2">
-        <img src="/sack-e-icon-logo.jpeg" alt="Sack-E Online" className="h-8 md:h-9 object-contain rounded-md" />
+        <Image src="/sack-e-icon-logo.jpeg" alt="Sack-E Online" width={36} height={36} className="h-8 w-8 md:h-9 md:w-9 object-contain rounded-md" />
         <span className="font-display text-xl font-bold text-primary tracking-tight hidden sm:inline">Sack-E</span>
       </Link>
       

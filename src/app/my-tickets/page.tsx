@@ -3,7 +3,8 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useRouter } from 'next/navigation';
-import { collection, query, where, getDocs, doc, getDoc } from 'firebase/firestore';
+import { collection, query, where, getDocs, doc, getDoc, collectionGroup } from 'firebase/firestore';
+import Image from 'next/image';
 import { db } from '@/lib/firebase';
 import { QRCodeSVG } from 'qrcode.react';
 import { format, parseISO, isBefore, startOfDay } from 'date-fns';
@@ -191,10 +192,9 @@ export default function TicketsPage() {
               <div className="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-full blur-3xl group-hover:bg-primary/20 transition-colors" />
               
               {/* Event Image */}
-              <div 
-                className="h-48 sm:h-auto sm:w-2/5 bg-cover bg-center border-b sm:border-b-0 sm:border-r border-black/10"
-                style={{ backgroundImage: `url('${ticket.eventDetails?.imageUrl}')` }}
-              />
+              <div className="h-48 sm:h-auto sm:w-2/5 relative overflow-hidden border-b sm:border-b-0 sm:border-r border-black/10 shrink-0">
+                <Image src={ticket.eventDetails?.imageUrl || '/placeholder-event.jpg'} alt={ticket.eventDetails?.title || 'Event Image'} fill className="object-cover" />
+              </div>
 
               {/* Ticket Details */}
               <div className="p-6 flex-1 flex flex-col justify-between z-10 relative">
@@ -280,10 +280,9 @@ export default function TicketsPage() {
             {reservations.map(res => (
               <div key={res.id} className="bg-surface-container border border-black/10 rounded-2xl p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-xl">
                 <div className="flex gap-4 items-center">
-                  <div 
-                    className="w-16 h-16 rounded-xl bg-cover bg-center shrink-0"
-                    style={{ backgroundImage: `url('${res.eventDetails?.imageUrl}')` }}
-                  />
+                  <div className="w-16 h-16 rounded-xl relative overflow-hidden shrink-0">
+                    <Image src={res.eventDetails?.imageUrl || '/placeholder-event.jpg'} alt={res.eventDetails?.title || 'Event'} fill className="object-cover" />
+                  </div>
                   <div>
                     <h3 className="font-bold text-lg">{res.eventDetails?.title}</h3>
                     <div className="flex gap-2 text-sm mt-1 text-on-surface-variant">

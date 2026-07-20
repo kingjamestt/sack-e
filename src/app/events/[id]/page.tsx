@@ -2,6 +2,7 @@
 
 import { useEffect, useState, use } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { ArrowLeft, Calendar, MapPin, Share2, Clock, Loader2, Plus, Minus } from 'lucide-react';
 import { getEvent, getTicketTiers, reserveTickets, TicketTier, extractEventId } from '@/lib/events';
 import { EventData } from '@/types';
@@ -141,9 +142,12 @@ export default function EventDetailsPage({ params }: { params: Promise<{ id: str
   return (
     <main className="min-h-screen pb-24 relative">
       <div className="fixed inset-0 z-0">
-        <div 
-          className="absolute inset-0 bg-cover bg-center opacity-20 blur-3xl scale-110"
-          style={{ backgroundImage: `url('${event.imageUrl}')` }}
+        <Image
+          src={event.imageUrl || '/placeholder-event.jpg'}
+          alt="Background Blur"
+          fill
+          priority
+          className="object-cover opacity-20 blur-3xl scale-110"
         />
         <div className="absolute inset-0 bg-surface/80" />
       </div>
@@ -156,9 +160,12 @@ export default function EventDetailsPage({ params }: { params: Promise<{ id: str
         {/* Hero Section */}
         <div className="rounded-3xl overflow-hidden bg-surface-container border border-white/10 shadow-2xl mb-8 lg:mb-12 flex flex-col lg:flex-row min-h-[350px]">
           <div className="w-full lg:w-7/12 h-72 lg:h-auto relative">
-            <div 
-              className="absolute inset-0 bg-cover bg-center"
-              style={{ backgroundImage: `url('${event.imageUrl}')` }}
+            <Image
+              src={event.imageUrl || '/placeholder-event.jpg'}
+              alt={event.title}
+              fill
+              priority
+              className="object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-r from-surface/90 lg:from-transparent via-surface/40 lg:via-transparent to-transparent lg:to-surface-container" />
           </div>
