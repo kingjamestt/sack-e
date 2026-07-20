@@ -4,6 +4,7 @@ import { Inter, Montserrat } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/contexts/AuthContext";
 import NavBar from "@/components/NavBar";
+import BottomNav from "@/components/BottomNav";
 import { Toaster } from 'react-hot-toast';
 import Link from 'next/link';
 
@@ -50,9 +51,10 @@ export default function RootLayout({
       <body className="bg-background text-on-background antialiased min-h-screen selection:bg-primary selection:text-on-primary flex flex-col transition-colors duration-300" suppressHydrationWarning>
         <AuthProvider>
           <NavBar />
-          <div className="flex-grow">
+          <div className="flex-grow pb-16 md:pb-0">
             {children}
           </div>
+          <BottomNav />
           <footer className="w-full py-12 mt-20 border-t border-surface-variant/20 bg-surface/50 backdrop-blur-md relative z-10">
             <div className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
               <div className="flex flex-col gap-4">

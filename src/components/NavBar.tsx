@@ -5,46 +5,31 @@ import Image from "next/image";
 import { useRouter, usePathname } from "next/navigation";
 import { useAuth } from "@/contexts/AuthContext";
 import { useState, useRef, useEffect } from "react";
-import { ChevronDown, Ticket, LogOut, Home, Search, Bell, Menu, User, Mail, Settings, X } from "lucide-react";
+import { Search, Bell, User, LogOut, X, Compass, Ticket, CalendarPlus } from "lucide-react";
 import { subscribeToNotifications, markNotificationAsRead } from "@/lib/notifications";
-import { NotificationData } from "@/types";
 import { useNotifications } from "@/hooks/useNotifications";
 import toast from 'react-hot-toast';
 
-/**
- * NavBar Component
- * 
- * Responsive navigation bar for the application.
- * It dynamically adapts its contents based on the user's authentication state.
- * Includes logo/branding, main navigation links, and a user profile dropdown 
- * or login/signup buttons depending on if the user is authenticated.
- * 
- * Includes real-time notification polling and displays unread notification badges.
- * 
- * @returns {JSX.Element} The rendered navigation bar.
- */
 export default function NavBar() {
   const { user, loading, logout } = useAuth();
   const router = useRouter();
   const pathname = usePathname();
   
   const [searchQuery, setSearchQuery] = useState("");
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [accountDropdownOpen, setAccountDropdownOpen] = useState(false);
-  const [menuDropdownOpen, setMenuDropdownOpen] = useState(false);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
+  
   const notifications = useNotifications(user?.uid);
   
   const accountRef = useRef<HTMLDivElement>(null);
-  const menuRef = useRef<HTMLDivElement>(null);
   const notificationsRef = useRef<HTMLDivElement>(null);
+  const searchInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (accountRef.current && !accountRef.current.contains(event.target as Node)) {
         setAccountDropdownOpen(false);
-      }
-      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-        setMenuDropdownOpen(false);
       }
       if (notificationsRef.current && !notificationsRef.current.contains(event.target as Node)) {
         setNotificationsOpen(false);
@@ -54,9 +39,28 @@ export default function NavBar() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  useEffect(() => {
+    if (isSearchOpen && searchInputRef.current) {
+      searchInputRef.current.focus();
+    }
+  }, [isSearchOpen]);
+
+  // Prevent background scrolling when search overlay is open
+  useEffect(() => {
+    if (isSearchOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isSearchOpen]);
+
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (searchQuery.trim()) {
+      setIsSearchOpen(false);
       router.push(`/?q=${encodeURIComponent(searchQuery)}#events-section`);
     }
   };
@@ -74,234 +78,200 @@ export default function NavBar() {
 
   const getLinkClass = (path: string) => {
     const isActive = pathname === path || (path === '/#events-section' && pathname === '/');
-    return `relative font-body text-sm xl:text-base font-bold transition-all duration-200 active:scale-95 whitespace-nowrap py-1 ${
+    return `flex items-center gap-1.5 font-body text-sm xl:text-base font-bold transition-all duration-200 active:scale-95 whitespace-nowrap py-1 ${
       isActive 
         ? 'text-primary' 
         : 'text-on-surface-variant hover:text-primary'
-    } after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-full after:h-0.5 after:bg-primary after:transition-transform after:duration-300 after:origin-left ${isActive ? 'after:scale-x-100' : 'after:scale-x-0 hover:after:scale-x-100'}`;
-  };
-
-  const getMobileLinkClass = (path: string) => {
-    const isActive = pathname === path || (path === '/#events-section' && pathname === '/');
-    return `flex items-center gap-3 px-4 py-3 text-sm transition-colors text-left font-semibold ${
-      isActive 
-        ? 'bg-surface-dim text-primary' 
-        : 'text-on-surface hover:bg-surface-dim'
     }`;
   };
 
   return (
-    <div className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-2rem)] max-w-5xl transition-all duration-300">
-      <nav className="bg-surface/80 backdrop-blur-2xl w-full border border-outline-variant/30 shadow-[0_8px_32px_rgba(0,0,0,0.12)] rounded-full flex justify-between items-center px-6 md:px-8 py-3">
-      <Link href="/" className="flex items-center gap-2">
-        <Image src="/sack-e-icon-logo.jpeg" alt="Sack-E Online" width={36} height={36} className="h-8 w-8 md:h-9 md:w-9 object-contain rounded-md" />
-        <span className="font-display text-xl font-bold text-primary tracking-tight hidden sm:inline">Sack-E</span>
-      </Link>
-      
-      <div className="hidden md:flex items-center gap-4 lg:gap-6">
-        <Link href="/#events-section" className={getLinkClass('/#events-section')}>Upcoming Events</Link>
-        {user && (
-          <>
-            <Link href="/my-tickets" className={getLinkClass('/my-tickets')}>My Tickets</Link>
-            <Link href="/my-events" className={getLinkClass('/my-events')}>My Events</Link>
-          </>
-        )}
-        <Link href="/contact" className={getLinkClass('/contact')}>Contact Us / Support</Link>
-      </div>
-
-      <div className="flex gap-4 items-center">
-        <form onSubmit={handleSearch} className="hidden lg:flex items-center bg-surface-container rounded-full px-4 py-2 border border-outline-variant/50 focus-within:border-primary transition-colors">
-          <Search className="text-on-surface-variant mr-2" size={16} />
-          <input 
-            type="text" 
-            placeholder="Search events..." 
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="bg-transparent border-none focus:outline-none focus:ring-0 text-sm font-body text-on-surface placeholder:text-on-surface-variant w-32 xl:w-40" 
-          />
-        </form>
-
-        <Link href="/my-events/create" className="hidden md:inline-flex bg-primary text-on-primary font-semibold text-sm px-4 py-2 rounded-full hover:bg-primary-container transition-colors duration-200 active:scale-95 shadow-[0_4px_14px_rgba(0,104,93,0.2)]">
-          Create Event
-        </Link>
-        
-        {user && (
-          <div className="relative hidden md:block" ref={notificationsRef}>
-            <button 
-              onClick={() => setNotificationsOpen(!notificationsOpen)}
-              className="relative text-on-surface-variant hover:text-primary transition-colors p-2 rounded-full hover:bg-surface-container"
-            >
-              <Bell size={20} />
-              {notifications.filter(n => !n.read).length > 0 && (
-                <span className="absolute top-1 right-1.5 w-2 h-2 bg-error rounded-full ring-2 ring-surface"></span>
-              )}
-            </button>
-            
-            {notificationsOpen && (
-              <div className="absolute right-0 mt-2 w-80 bg-surface-container-highest border border-outline-variant/30 rounded-xl shadow-2xl overflow-hidden flex flex-col py-2 animate-in fade-in slide-in-from-top-2 duration-200 z-50">
-                <div className="px-4 py-2 border-b border-outline-variant/20 font-bold text-on-surface">Notifications</div>
-                <div className="max-h-80 overflow-y-auto">
-                  {notifications.length === 0 ? (
-                    <div className="px-4 py-6 text-center text-sm text-on-surface-variant">No notifications right now.</div>
-                  ) : (
-                    notifications.map(notification => (
-                      <div key={notification.id} className={`px-4 py-3 border-b border-outline-variant/10 last:border-0 hover:bg-surface-dim transition-colors ${!notification.read ? 'bg-primary/5' : ''}`}>
-                        <div className="flex justify-between items-start gap-2">
-                          <div 
-                            className={notification.link ? "cursor-pointer flex-1" : "flex-1"}
-                            onClick={() => {
-                              if (notification.link) {
-                                router.push(notification.link);
-                                setNotificationsOpen(false);
-                                if (!notification.read && user) {
-                                  markNotificationAsRead(user.uid, notification.id);
-                                }
-                              }
-                            }}
-                          >
-                            <div className={`text-sm font-semibold ${!notification.read ? 'text-on-surface' : 'text-on-surface-variant'}`}>{notification.title}</div>
-                            <div className="text-xs text-on-surface-variant mt-0.5 leading-snug">{notification.message}</div>
-                          </div>
-                          {!notification.read && (
-                            <button 
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                if (user) markNotificationAsRead(user.uid, notification.id);
-                              }}
-                              className="text-on-surface-variant hover:text-error p-1 rounded-full hover:bg-error/10 transition-colors flex-shrink-0"
-                              title="Dismiss"
-                            >
-                              <X size={16} />
-                            </button>
-                          )}
-                        </div>
-                      </div>
-                    ))
-                  )}
-                </div>
-              </div>
+    <>
+      <div className="fixed top-4 left-1/2 -translate-x-1/2 z-40 w-[calc(100%-2rem)] max-w-7xl transition-all duration-300">
+        <nav className="bg-surface/90 backdrop-blur-3xl w-full border border-outline-variant/30 shadow-[0_8px_32px_rgba(0,0,0,0.12)] rounded-full flex justify-between items-center px-4 md:px-6 py-3">
+          
+          {/* Logo */}
+          <Link href="/" className="flex items-center gap-2 flex-shrink-0 mr-4">
+            <Image src="/sack-e-icon-logo.jpeg" alt="Sack-E Online" width={36} height={36} className="h-8 w-8 md:h-9 md:w-9 object-contain rounded-md" />
+            <span className="font-display text-xl font-bold text-primary tracking-tight hidden sm:inline whitespace-nowrap">Sack-E</span>
+          </Link>
+          
+          {/* Desktop Core Links */}
+          <div className="hidden md:flex items-center gap-6 xl:gap-8 flex-shrink-0 mx-auto">
+            <Link href="/#events-section" className={getLinkClass('/#events-section')}>
+              <Compass size={18} /> Explore
+            </Link>
+            {user && (
+              <>
+                <Link href="/my-tickets" className={getLinkClass('/my-tickets')}>
+                  <Ticket size={18} /> Tickets
+                </Link>
+                <Link href="/my-events" className={getLinkClass('/my-events')}>
+                  <CalendarPlus size={18} /> Manage
+                </Link>
+              </>
             )}
           </div>
-        )}
 
-        {!loading && (
-          user ? (
-            <div className="flex items-center gap-3">
-              {/* Account Pill */}
-              <div className="relative" ref={accountRef}>
+          {/* Right Actions: Search, Notifications, Profile */}
+          <div className="flex gap-2 sm:gap-4 items-center flex-shrink-0 ml-auto md:ml-0">
+            {/* Search Toggle */}
+            <button 
+              onClick={() => setIsSearchOpen(true)}
+              className="p-2 text-on-surface-variant hover:text-primary transition-colors rounded-full hover:bg-surface-container"
+              aria-label="Search events"
+            >
+              <Search size={20} />
+            </button>
+
+            {/* Notifications */}
+            {user && (
+              <div className="relative" ref={notificationsRef}>
                 <button 
-                  onClick={() => setAccountDropdownOpen(!accountDropdownOpen)} 
-                  className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface-container border border-outline-variant/30 hover:bg-surface-container-high transition-colors"
+                  onClick={() => setNotificationsOpen(!notificationsOpen)}
+                  className="relative text-on-surface-variant hover:text-primary transition-colors p-2 rounded-full hover:bg-surface-container"
                 >
-                  <span className="text-sm font-semibold max-w-[120px] md:max-w-[160px] truncate text-on-surface">
-                    {user.phoneNumber || user.email || 'Account'}
-                  </span>
-                  <ChevronDown size={16} className={`transition-transform text-on-surface-variant ${accountDropdownOpen ? 'rotate-180' : ''}`} />
+                  <Bell size={20} />
+                  {notifications.filter(n => !n.read).length > 0 && (
+                    <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-error rounded-full ring-2 ring-surface"></span>
+                  )}
                 </button>
                 
-                {accountDropdownOpen && (
-                  <div className="absolute right-0 mt-2 w-56 bg-surface-container-highest border border-outline-variant/30 rounded-xl shadow-2xl overflow-hidden flex flex-col py-2 animate-in fade-in slide-in-from-top-2 duration-200">
-                    <Link 
-                      href="/profile" 
-                      onClick={() => setAccountDropdownOpen(false)} 
-                      className="flex items-center gap-3 px-4 py-3 text-sm hover:bg-surface-dim transition-colors text-left font-semibold text-on-surface"
-                    >
-                      <User size={16} className="text-primary" /> Edit Account Details
-                    </Link>
-                    <div className="py-2 border-t border-white/10">
-                      <button 
-                        onClick={handleLogout} 
-                        className="w-full px-4 py-2 text-left text-sm text-error hover:bg-error/10 flex items-center gap-3 transition-colors"
-                      >
-                        <LogOut size={16} /> Logout
-                      </button>
+                {notificationsOpen && (
+                  <div className="absolute right-0 mt-2 w-80 bg-surface-container-highest border border-outline-variant/30 rounded-xl shadow-2xl overflow-hidden flex flex-col py-2 animate-in fade-in slide-in-from-top-2 duration-200 z-50">
+                    <div className="px-4 py-2 border-b border-outline-variant/20 font-bold text-on-surface flex justify-between items-center">
+                      <span>Notifications</span>
+                    </div>
+                    <div className="max-h-80 overflow-y-auto">
+                      {notifications.length === 0 ? (
+                        <div className="px-4 py-6 text-center text-sm text-on-surface-variant">No notifications right now.</div>
+                      ) : (
+                        notifications.map(notification => (
+                          <div key={notification.id} className={`px-4 py-3 border-b border-outline-variant/10 last:border-0 hover:bg-surface-dim transition-colors ${!notification.read ? 'bg-primary/5' : ''}`}>
+                            <div className="flex justify-between items-start gap-2">
+                              <div 
+                                className={notification.link ? "cursor-pointer flex-1" : "flex-1"}
+                                onClick={() => {
+                                  if (notification.link) {
+                                    router.push(notification.link);
+                                    setNotificationsOpen(false);
+                                    if (!notification.read && user) {
+                                      markNotificationAsRead(user.uid, notification.id);
+                                    }
+                                  }
+                                }}
+                              >
+                                <div className={`text-sm font-semibold ${!notification.read ? 'text-on-surface' : 'text-on-surface-variant'}`}>{notification.title}</div>
+                                <div className="text-xs text-on-surface-variant mt-0.5 leading-snug">{notification.message}</div>
+                              </div>
+                              {!notification.read && (
+                                <button 
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    if (user) markNotificationAsRead(user.uid, notification.id);
+                                  }}
+                                  className="text-on-surface-variant hover:text-error p-1 rounded-full hover:bg-error/10 transition-colors flex-shrink-0"
+                                >
+                                  <X size={16} />
+                                </button>
+                              )}
+                            </div>
+                          </div>
+                        ))
+                      )}
                     </div>
                   </div>
                 )}
               </div>
+            )}
 
-              {/* Hamburger Menu (Mobile Only) */}
-              <div className="relative md:hidden" ref={menuRef}>
-                <button 
-                  onClick={() => setMenuDropdownOpen(!menuDropdownOpen)}
-                  className="p-1.5 text-on-surface-variant hover:text-primary transition-colors rounded-lg hover:bg-surface-container"
-                >
-                  <Menu size={24} />
-                </button>
-                
-                {menuDropdownOpen && (
-                  <div className="absolute right-0 mt-2 w-56 bg-surface-container-highest border border-outline-variant/30 rounded-xl shadow-2xl overflow-hidden flex flex-col py-2 animate-in fade-in slide-in-from-top-2 duration-200">
-                    <Link 
-                      href="/#events-section" 
-                      onClick={() => setMenuDropdownOpen(false)} 
-                      className={getMobileLinkClass('/#events-section')}
-                    >
-                      <Home size={16} className={pathname === '/' ? 'text-primary' : 'text-secondary'} /> Upcoming Events
-                    </Link>
-                    <Link 
-                      href="/my-tickets" 
-                      onClick={() => setMenuDropdownOpen(false)} 
-                      className={getMobileLinkClass('/my-tickets')}
-                    >
-                      <Ticket size={16} className={pathname === '/my-tickets' ? 'text-primary' : 'text-primary/70'} /> My Tickets
-                    </Link>
-                    <Link 
-                      href="/my-events" 
-                      onClick={() => setMenuDropdownOpen(false)} 
-                      className={getMobileLinkClass('/my-events')}
-                    >
-                      <Settings size={16} className={pathname === '/my-events' ? 'text-primary' : 'text-secondary'} /> My Events
-                    </Link>
-                    <Link 
-                      href="/contact" 
-                      onClick={() => setMenuDropdownOpen(false)} 
-                      className={getMobileLinkClass('/contact')}
-                    >
-                      <Mail size={16} className={pathname === '/contact' ? 'text-primary' : 'text-secondary'} /> Contact Us / Support
-                    </Link>
-                  </div>
-                )}
-              </div>
-            </div>
-          ) : (
-            <div className="flex items-center gap-4">
-              <Link href="/login" className="px-4 py-2 text-sm font-semibold text-on-surface hover:text-primary transition-colors">
-                Login
-              </Link>
-              <Link href="/signup" className="px-4 py-2 text-sm font-semibold bg-surface-container text-primary rounded-full hover:bg-surface-container-high transition-colors">
-                Sign Up
-              </Link>
-              <div className="relative md:hidden" ref={menuRef}>
-                <button 
-                  onClick={() => setMenuDropdownOpen(!menuDropdownOpen)}
-                  className="p-1.5 text-on-surface-variant hover:text-primary transition-colors rounded-lg hover:bg-surface-container"
-                >
-                  <Menu size={24} />
-                </button>
-                {menuDropdownOpen && (
-                  <div className="absolute right-0 mt-2 w-56 bg-surface-container-highest border border-outline-variant/30 rounded-xl shadow-2xl overflow-hidden flex flex-col py-2 animate-in fade-in slide-in-from-top-2 duration-200">
-                    <Link 
-                      href="/#events-section" 
-                      onClick={() => setMenuDropdownOpen(false)} 
-                      className={getMobileLinkClass('/#events-section')}
-                    >
-                      <Home size={16} className={pathname === '/' ? 'text-primary' : 'text-secondary'} /> Upcoming Events
-                    </Link>
-                    <Link 
-                      href="/contact" 
-                      onClick={() => setMenuDropdownOpen(false)} 
-                      className={getMobileLinkClass('/contact')}
-                    >
-                      <Mail size={16} className={pathname === '/contact' ? 'text-primary' : 'text-secondary'} /> Contact Us / Support
-                    </Link>
-                  </div>
-                )}
-              </div>
-            </div>
-          )
-        )}
+            {/* Profile / Auth */}
+            {!loading && (
+              user ? (
+                <div className="relative" ref={accountRef}>
+                  <button 
+                    onClick={() => setAccountDropdownOpen(!accountDropdownOpen)} 
+                    className="p-2 text-on-surface-variant hover:text-primary transition-colors rounded-full hover:bg-surface-container ml-1"
+                  >
+                    <User size={22} />
+                  </button>
+                  
+                  {accountDropdownOpen && (
+                    <div className="absolute right-0 mt-2 w-56 bg-surface-container-highest border border-outline-variant/30 rounded-xl shadow-2xl overflow-hidden flex flex-col py-2 animate-in fade-in slide-in-from-top-2 duration-200 z-50">
+                      <div className="px-4 py-3 border-b border-white/10 mb-2">
+                        <p className="text-xs text-on-surface-variant">Signed in as</p>
+                        <p className="text-sm font-bold text-on-surface truncate">{user.email || user.phoneNumber}</p>
+                      </div>
+                      <Link 
+                        href="/profile" 
+                        onClick={() => setAccountDropdownOpen(false)} 
+                        className="flex items-center gap-3 px-4 py-2.5 text-sm hover:bg-surface-dim transition-colors font-semibold text-on-surface"
+                      >
+                        <User size={16} className="text-primary" /> Profile
+                      </Link>
+                      <div className="py-2 mt-1 border-t border-white/10">
+                        <button 
+                          onClick={handleLogout} 
+                          className="w-full px-4 py-2 text-left text-sm text-error hover:bg-error/10 flex items-center gap-3 transition-colors font-semibold"
+                        >
+                          <LogOut size={16} /> Logout
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <div className="flex items-center gap-2">
+                  <Link href="/login" className="px-3 py-2 text-sm font-semibold text-on-surface hover:text-primary transition-colors">
+                    Login
+                  </Link>
+                  <Link href="/signup" className="px-4 py-2 text-sm font-semibold bg-primary text-on-primary rounded-full hover:bg-primary-container transition-colors shadow-md">
+                    Sign Up
+                  </Link>
+                </div>
+              )
+            )}
+          </div>
+        </nav>
       </div>
-      </nav>
-    </div>
+
+      {/* Full Screen Search Overlay */}
+      {isSearchOpen && (
+        <div className="fixed inset-0 z-[100] bg-background/80 backdrop-blur-2xl flex flex-col items-center justify-center animate-in fade-in zoom-in-95 duration-300 p-4">
+          <button 
+            onClick={() => setIsSearchOpen(false)}
+            className="absolute top-6 right-6 md:top-12 md:right-12 p-3 text-on-surface-variant hover:text-error hover:bg-error/10 rounded-full transition-colors"
+          >
+            <X size={32} />
+          </button>
+          
+          <div className="w-full max-w-4xl flex flex-col items-center">
+            <h2 className="font-display font-bold text-3xl md:text-5xl text-on-surface mb-8 text-center">
+              What are you looking for?
+            </h2>
+            <form onSubmit={handleSearch} className="w-full relative">
+              <Search className="absolute left-6 top-1/2 -translate-y-1/2 text-primary" size={32} />
+              <input 
+                ref={searchInputRef}
+                type="text" 
+                placeholder="Search events, artists, venues..." 
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full bg-surface-container border-2 border-primary/20 focus:border-primary text-on-surface text-xl md:text-3xl rounded-full py-6 md:py-8 pl-16 md:pl-20 pr-6 shadow-2xl focus:outline-none focus:ring-0 transition-colors" 
+              />
+              <button 
+                type="submit"
+                className="absolute right-4 top-1/2 -translate-y-1/2 bg-primary text-on-primary px-6 md:px-8 py-3 md:py-4 rounded-full font-bold md:text-lg hover:bg-primary-container hover:scale-105 transition-all shadow-lg"
+              >
+                Search
+              </button>
+            </form>
+            <p className="mt-6 text-on-surface-variant font-medium text-sm md:text-base">
+              Press <kbd className="bg-surface-container px-2 py-1 rounded-md text-xs font-mono border border-outline-variant/30">Enter</kbd> to search or click the X to close.
+            </p>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
