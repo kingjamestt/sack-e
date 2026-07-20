@@ -50,16 +50,16 @@ export default function SignUpPage() {
     setError('');
     setIsLoading(true);
     try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const userCredential = await createUserWithEmailAndPassword(auth, email.trim(), password);
       const user = userCredential.user;
       
       // Update Auth Profile
-      await updateProfile(user, { displayName: name });
+      await updateProfile(user, { displayName: name.trim() });
       
       // Create user document in Firestore
       await setDoc(doc(db, 'users', user.uid), {
-        name,
-        email,
+        name: name.trim(),
+        email: email.trim(),
         createdAt: new Date().toISOString(),
         role: 'user', // Default role
       });

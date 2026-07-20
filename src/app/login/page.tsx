@@ -82,7 +82,7 @@ function LoginContent() {
     setError('');
     setIsLoading(true);
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      await signInWithEmailAndPassword(auth, email.trim(), password);
       toast.success('Successfully logged in!');
       router.push(redirectUrl);
     } catch (err: any) {
@@ -106,8 +106,8 @@ function LoginContent() {
     
     setIsLoading(true);
     try {
-      await sendPasswordResetEmail(auth, email);
-      setResetMessage('Password reset email sent. Please check your inbox.');
+      await sendPasswordResetEmail(auth, email.trim());
+      setResetMessage('A password reset link has been sent to your email.');
     } catch (err: any) {
       setError(err.message || 'Failed to send password reset email.');
     } finally {

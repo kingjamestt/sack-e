@@ -78,7 +78,8 @@ export default function EventList({
 
   const filteredEvents = events.filter(event => {
     if (!searchQuery) return true;
-    const lower = searchQuery.toLowerCase();
+    const lower = searchQuery.toLowerCase().trim();
+    if (!lower) return true;
     return (
       event.title.toLowerCase().includes(lower) || 
       event.location.toLowerCase().includes(lower) ||
