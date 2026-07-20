@@ -152,12 +152,7 @@ export default function CheckoutPage() {
         
         {/* Left Column - Event Summary */}
         <div className="w-full lg:w-1/2 space-y-6">
-          <button 
-            onClick={handleCancel}
-            className="inline-flex items-center text-sm font-semibold text-on-surface-variant hover:text-primary transition-colors"
-          >
-            <ArrowLeft size={16} className="mr-2" /> Cancel & Return
-          </button>
+
           
           <div className="bg-surface-container rounded-3xl p-6 border border-black/10">
             <h2 className="text-2xl font-bold mb-4">Order Summary</h2>
@@ -281,6 +276,15 @@ export default function CheckoutPage() {
           </div>
         </div>
 
+      </div>
+
+      <div className="max-w-4xl mx-auto mt-12 flex justify-center">
+        <button 
+          onClick={handleCancel}
+          className="inline-flex items-center text-sm font-semibold text-on-surface-variant hover:text-primary transition-colors bg-surface-container/50 px-4 py-2 rounded-full backdrop-blur-md"
+        >
+          <ArrowLeft size={16} className="mr-2" /> Cancel & Return
+        </button>
       </div>
     </main>
   );

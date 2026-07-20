@@ -352,12 +352,11 @@ function LoginContent() {
             <Link href="/signup" className="text-primary hover:text-primary-container font-bold transition-colors">Sign up</Link>
           </p>
         </div>
-      </div>
-      
-      <div className="absolute bottom-8 left-0 right-0 flex justify-center z-10">
-        <Link href="/" className="inline-flex items-center text-sm font-semibold text-on-surface-variant hover:text-primary transition-colors bg-surface-container/50 px-4 py-2 rounded-full backdrop-blur-md">
-          <ArrowLeft size={16} className="mr-2" /> Back to Home
-        </Link>
+        <div className="mt-8 flex justify-center w-full">
+          <Link href="/" className="inline-flex items-center text-sm font-semibold text-on-surface-variant hover:text-primary transition-colors bg-surface-container/50 px-4 py-2 rounded-full backdrop-blur-md">
+            <ArrowLeft size={16} className="mr-2" /> Back to Home
+          </Link>
+        </div>
       </div>
     </main>
   );

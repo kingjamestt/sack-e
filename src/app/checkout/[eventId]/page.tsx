@@ -172,12 +172,7 @@ export default function CheckoutPage({ params }: { params: Promise<{ eventId: st
         
         {/* Left Column - Event & Ticket Selection */}
         <div className="w-full lg:w-1/2 space-y-6">
-          <Link 
-            href={getEventLink(event)}
-            className="flex items-center gap-2 text-on-surface-variant hover:text-primary transition-colors mb-6 w-max"
-          >
-            &larr; Back to Event
-          </Link>
+
           
           <div className="bg-surface-container rounded-3xl p-6 border border-black/10">
             <h2 className="text-2xl font-bold mb-2">Select Tickets</h2>
@@ -390,6 +385,15 @@ export default function CheckoutPage({ params }: { params: Promise<{ eventId: st
           </div>
         </div>
 
+      </div>
+      
+      <div className="max-w-5xl mx-auto mt-12 flex justify-center">
+        <Link 
+          href={getEventLink(event)}
+          className="inline-flex items-center text-sm font-semibold text-on-surface-variant hover:text-primary transition-colors bg-surface-container/50 px-4 py-2 rounded-full backdrop-blur-md"
+        >
+          <ArrowLeft size={16} className="mr-2" /> Back to Event
+        </Link>
       </div>
     </main>
   );
