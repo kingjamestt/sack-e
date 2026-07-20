@@ -94,7 +94,7 @@ export default function NavBar() {
 
   return (
     <>
-      <div className="fixed top-4 left-1/2 -translate-x-1/2 z-40 w-[calc(100%-1rem)] sm:w-[calc(100%-2rem)] max-w-7xl transition-all duration-300">
+      <div className="absolute top-4 left-1/2 -translate-x-1/2 z-40 w-[calc(100%-1rem)] sm:w-[calc(100%-2rem)] max-w-7xl transition-all duration-300">
         <nav className="bg-surface/90 backdrop-blur-3xl w-full border border-outline-variant/30 shadow-[0_8px_32px_rgba(0,0,0,0.12)] rounded-full flex items-center px-2 sm:px-4 md:px-6 py-3 md:py-4 relative">
           
           {/* Logo */}
