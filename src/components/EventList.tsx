@@ -8,11 +8,24 @@ import { format, parseISO } from 'date-fns';
 import EventCalendar from './EventCalendar';
 import EventCard from './EventCard';
 
-export default function EventList({ viewMode = 'grid', searchQuery = '' }: { viewMode?: 'grid' | 'calendar', searchQuery?: string }) {
-  const [events, setEvents] = useState<EventData[]>([]);
+export default function EventList({ 
+  viewMode = 'grid', 
+  searchQuery = '',
+  initialEvents = []
+}: { 
+  viewMode?: 'grid' | 'calendar'; 
+  searchQuery?: string;
+  initialEvents?: EventData[];
+}) {
+  const [events, setEvents] = useState<EventData[]>(initialEvents);
   const [lastDoc, setLastDoc] = useState<QueryDocumentSnapshot<DocumentData> | null>(null);
   const [loading, setLoading] = useState(false);
-  const [firstLoad, setFirstLoad] = useState(true);
+  const [firstLoad, setFirstLoad] = useState(initialEvents.length === 0);
+  // If we have initialEvents, we still don't know the exact lastDoc for pagination, 
+  // but since we fetched 9 on the server, we assume there might be more. 
+  // Wait, if we don't have lastDoc, the next fetch will fetch page 1 again, resulting in duplicates being filtered out!
+  // To avoid fetching page 1 again, if initialEvents are provided, we should ideally have the lastDoc, but since we can't serialize it, we might just fetch the next page by passing a special cursor or re-fetching and filtering.
+  // We'll leave setHasMore(true) and let the Set filter out duplicates when it refetches page 1 on scroll.
   const [hasMore, setHasMore] = useState(true);
   const observer = useRef<IntersectionObserver | null>(null);
 
@@ -44,7 +57,10 @@ export default function EventList({ viewMode = 'grid', searchQuery = '' }: { vie
   };
 
   useEffect(() => {
-    void fetchEvents(null);
+    // Only fetch if we didn't receive initial events
+    if (initialEvents.length === 0) {
+      void fetchEvents(null);
+    }
   }, []);
 
   const lastEventElementRef = useCallback((node: HTMLAnchorElement | null) => {

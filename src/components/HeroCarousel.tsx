@@ -8,25 +8,11 @@ import { getFeaturedEvents, getEventLink } from '@/lib/events';
 import { EventData } from '@/types';
 import { format, parseISO } from 'date-fns';
 
-export default function HeroCarousel() {
-  const [events, setEvents] = useState<EventData[]>([]);
+export default function HeroCarousel({ initialEvents }: { initialEvents: EventData[] }) {
+  const [events, setEvents] = useState<EventData[]>(initialEvents);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [loading, setLoading] = useState(true);
   const [activeBannerIdx, setActiveBannerIdx] = useState<number | null>(null);
 
-  useEffect(() => {
-    async function loadEvents() {
-      try {
-        const featured = await getFeaturedEvents();
-        setEvents(featured);
-      } catch (error) {
-        console.error("Failed to load featured events:", error);
-      } finally {
-        setLoading(false);
-      }
-    }
-    void loadEvents();
-  }, []);
 
   const nextSlide = useCallback(() => {
     if (events.length > 0) {
@@ -46,13 +32,6 @@ export default function HeroCarousel() {
     return () => clearInterval(interval);
   }, [events.length, nextSlide, activeBannerIdx]);
 
-  if (loading) {
-    return (
-      <section className="relative w-full h-[60vh] min-h-[400px] flex items-center justify-center overflow-hidden animate-pulse bg-surface-container">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-surface/90 to-surface" />
-      </section>
-    );
-  }
 
   // Fallback to static hero if no events returned
   if (events.length === 0) {
@@ -163,12 +142,14 @@ export default function HeroCarousel() {
         <>
           <button 
             onClick={prevSlide}
+            aria-label="Previous Slide"
             className="absolute left-4 top-1/2 -translate-y-1/2 z-30 p-2 rounded-full bg-surface/40 hover:bg-surface/80 text-white backdrop-blur-md border border-white/20 transition-all opacity-0 group-hover:opacity-100"
           >
             <ChevronLeft size={32} />
           </button>
           <button 
             onClick={nextSlide}
+            aria-label="Next Slide"
             className="absolute right-4 top-1/2 -translate-y-1/2 z-30 p-2 rounded-full bg-surface/40 hover:bg-surface/80 text-white backdrop-blur-md border border-white/20 transition-all opacity-0 group-hover:opacity-100"
           >
             <ChevronRight size={32} />

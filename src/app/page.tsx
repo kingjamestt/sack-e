@@ -2,13 +2,20 @@ import EventsSection from "@/components/EventsSection";
 import HeroCarousel from "@/components/HeroCarousel";
 import BackToTop from "@/components/BackToTop";
 import { Metadata } from "next";
+import { getFeaturedEvents, getEvents } from "@/lib/events";
 
 export const metadata: Metadata = {
   title: 'Home | Sack-E Online',
   description: 'Find the best upcoming events, concerts, and festivals. Book your tickets easily and securely.',
 };
 
-export default function Home() {
+// Enable ISR (Incremental Static Regeneration) for lightning fast TTFB/FCP
+export const revalidate = 60;
+
+export default async function Home() {
+  const featuredEvents = await getFeaturedEvents();
+  const { events: upcomingEvents, lastVisible: upcomingLastVisible } = await getEvents();
+
   return (
     <main className="min-h-screen pb-20 relative">
       {/* Subtle Mesh / Grid Background */}
@@ -32,11 +39,11 @@ export default function Home() {
       </header>
       
       <section aria-label="Featured Events Carousel">
-        <HeroCarousel />
+        <HeroCarousel initialEvents={featuredEvents} />
       </section>
 
       <section aria-label="Upcoming Events">
-        <EventsSection />
+        <EventsSection initialEvents={upcomingEvents} />
       </section>
       
       <BackToTop />

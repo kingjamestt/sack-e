@@ -4,8 +4,9 @@ import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { Calendar, Search, LayoutGrid, X } from "lucide-react";
 import EventList from "./EventList";
+import { EventData } from "@/types";
 
-function EventsContent() {
+function EventsContent({ initialEvents }: { initialEvents?: EventData[] }) {
   const searchParams = useSearchParams();
   const [viewMode, setViewMode] = useState<'grid' | 'calendar'>('grid');
   const [searchQuery, setSearchQuery] = useState(searchParams.get('q') || '');
@@ -69,16 +70,16 @@ function EventsContent() {
 
       {/* Event Grid & Calendar & Infinite Scroll */}
       <div className="relative z-10">
-        <EventList viewMode={viewMode} searchQuery={searchQuery} />
+        <EventList viewMode={viewMode} searchQuery={searchQuery} initialEvents={initialEvents} />
       </div>
     </section>
   );
 }
 
-export default function EventsSection() {
+export default function EventsSection({ initialEvents }: { initialEvents?: EventData[] }) {
   return (
     <Suspense fallback={<div className="h-96 flex items-center justify-center">Loading...</div>}>
-      <EventsContent />
+      <EventsContent initialEvents={initialEvents} />
     </Suspense>
   );
 }
