@@ -96,8 +96,7 @@ export default function HeroCarousel() {
     <section className="relative w-full h-[550px] md:h-[614px] min-h-[500px] flex flex-col justify-end overflow-hidden group bg-black">
       {/* Background Image Carousel */}
       {events.map((event, idx) => (
-        <Link 
-          href={getEventLink(event)}
+        <div 
           key={event.id}
           className={`absolute inset-0 transition-all duration-1000 ease-in-out ${idx === currentIndex ? 'opacity-100 z-10 scale-100' : 'opacity-0 z-0 scale-105 pointer-events-none'}`}
         >
@@ -110,16 +109,24 @@ export default function HeroCarousel() {
             className="object-cover opacity-40 blur-3xl scale-110"
           />
           {/* Sharp Foreground Image */}
-          <div className="absolute inset-0 flex items-center justify-center group-hover:scale-[1.01] transition-transform duration-700">
-            <Image
-              src={event.imageUrl || '/placeholder-event.jpg'}
-              alt={event.title}
-              fill
-              priority={idx === 0}
-              className="object-cover"
-            />
+          <div className="absolute inset-0 flex flex-col items-center justify-center transition-transform duration-700">
+            <div className="relative w-full h-full max-w-7xl mx-auto flex items-end justify-center pb-24 md:pb-32">
+              <Image
+                src={event.imageUrl || '/placeholder-event.jpg'}
+                alt={event.title}
+                fill
+                priority={idx === 0}
+                className="object-contain md:object-cover group-hover:scale-[1.01] transition-transform duration-700 -z-10"
+              />
+              <Link 
+                href={getEventLink(event)}
+                className="z-20 bg-primary/90 hover:bg-primary text-on-primary font-bold px-8 py-3 rounded-full backdrop-blur-md shadow-2xl hover:scale-105 hover:-translate-y-1 transition-all flex items-center gap-2 border border-white/20"
+              >
+                Get Tickets
+              </Link>
+            </div>
           </div>
-        </Link>
+        </div>
       ))}
 
       {/* Carousel Controls */}

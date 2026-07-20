@@ -95,11 +95,11 @@ export default function NavBar() {
   return (
     <>
       <div className="absolute top-4 left-1/2 -translate-x-1/2 z-40 w-[calc(100%-1rem)] sm:w-[calc(100%-2rem)] max-w-7xl transition-all duration-300">
-        <nav className="bg-surface/90 backdrop-blur-3xl w-full border border-outline-variant/30 shadow-[0_8px_32px_rgba(0,0,0,0.12)] rounded-full flex items-center px-2 sm:px-4 md:px-6 py-3 md:py-4 relative">
+        <nav className="bg-surface/90 backdrop-blur-3xl w-full border border-outline-variant/30 shadow-[0_8px_32px_rgba(0,0,0,0.12)] rounded-full flex items-center px-3 sm:px-4 md:px-6 py-3 md:py-4 relative">
           
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 flex-shrink-0 mr-auto">
-            <Image src="/sack-e-icon-logo.jpeg" alt="Sack-E Online" width={36} height={36} className="h-7 w-7 sm:h-8 sm:w-8 md:h-9 md:w-9 object-contain rounded-md" />
+          <Link href="/" className="flex items-center gap-2 flex-shrink-0 mr-auto ml-1 sm:ml-0">
+            <Image src="/sack-e-icon-logo.jpeg" alt="Sack-E Online" width={40} height={40} className="h-9 w-9 md:h-10 md:w-10 object-contain rounded-md" />
             <span className="font-display text-xl font-bold text-primary tracking-tight hidden lg:inline whitespace-nowrap">Sack-E</span>
           </Link>
           
