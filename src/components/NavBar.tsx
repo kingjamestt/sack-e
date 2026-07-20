@@ -91,7 +91,8 @@ export default function NavBar() {
   };
 
   return (
-    <nav className="bg-surface/90 backdrop-blur-xl w-full sticky top-0 z-50 border-b border-outline-variant/30 shadow-sm flex justify-between items-center px-6 md:px-8 py-4 max-w-full">
+    <div className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-2rem)] max-w-5xl transition-all duration-300">
+      <nav className="bg-surface/80 backdrop-blur-2xl w-full border border-outline-variant/30 shadow-[0_8px_32px_rgba(0,0,0,0.12)] rounded-full flex justify-between items-center px-6 md:px-8 py-3">
       <Link href="/" className="flex items-center gap-2">
         <Image src="/sack-e-icon-logo.jpeg" alt="Sack-E Online" width={36} height={36} className="h-8 w-8 md:h-9 md:w-9 object-contain rounded-md" />
         <span className="font-display text-xl font-bold text-primary tracking-tight hidden sm:inline">Sack-E</span>
@@ -300,6 +301,7 @@ export default function NavBar() {
           )
         )}
       </div>
-    </nav>
+      </nav>
+    </div>
   );
 }

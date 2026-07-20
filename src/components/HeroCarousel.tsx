@@ -93,91 +93,60 @@ export default function HeroCarousel() {
   const currentEvent = events[currentIndex];
 
   return (
-    <section className="relative w-full h-[550px] md:h-[614px] min-h-[500px] flex flex-col justify-end pb-16 overflow-hidden group">
+    <section className="relative w-full h-[550px] md:h-[614px] min-h-[500px] flex flex-col justify-end overflow-hidden group bg-black">
       {/* Background Image Carousel */}
       {events.map((event, idx) => (
-        <div 
+        <Link 
+          href={getEventLink(event)}
           key={event.id}
-          className={`absolute inset-0 transition-all duration-1000 ease-in-out ${idx === currentIndex ? 'opacity-100 z-0 scale-100' : 'opacity-0 -z-10 scale-105'}`}
+          className={`absolute inset-0 transition-all duration-1000 ease-in-out ${idx === currentIndex ? 'opacity-100 z-10 scale-100' : 'opacity-0 z-0 scale-105 pointer-events-none'}`}
         >
+          {/* Blurred Background to fill space */}
           <Image
             src={event.imageUrl || '/placeholder-event.jpg'}
-            alt={event.title}
+            alt={`${event.title} Background`}
             fill
             priority={idx === 0}
-            className="object-cover"
+            className="object-cover opacity-40 blur-3xl scale-110"
           />
-        </div>
-      ))}
-      
-      {/* Deep Blue Overlay for readability and theme matching */}
-      <div className="absolute inset-0 bg-gradient-to-t from-[#001d3d]/95 via-[#0B4DE5]/50 to-transparent z-10" />
-      <div className="absolute inset-0 bg-gradient-to-r from-[#001d3d]/70 to-transparent hidden md:block z-10" />
-
-      {/* Content */}
-      <div className="relative z-20 w-full max-w-7xl mx-auto px-6 md:px-8 flex flex-col items-start">
-        <div className="max-w-3xl flex flex-col gap-2 animate-in slide-in-from-bottom-8 fade-in duration-700" key={currentEvent.id}>
-          {currentEvent.isFeatured && (
-            <div className="flex gap-2 mb-2">
-              <span className="bg-primary/20 backdrop-blur-md text-primary-fixed border border-primary/30 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider">
-                Trending
-              </span>
-            </div>
-          )}
-          
-          <h1 className="font-display font-extrabold text-5xl md:text-[80px] md:leading-[88px] text-on-primary mb-2 drop-shadow-lg">
-            {currentEvent.title}
-          </h1>
-
-          {currentEvent.organizerName && (
-            <div className="text-lg md:text-xl font-semibold text-on-primary/90 mt-2 drop-shadow-md">
-              Presented by {currentEvent.organizerName}
-            </div>
-          )}
-          
-          <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6 mt-4 mb-6 text-on-primary/90 font-body text-lg opacity-90">
-            <div className="flex items-center gap-2">
-              <Calendar size={20} />
-              <span>{format(parseISO(currentEvent.date), 'MMMM do, yyyy')}</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <MapPin size={20} />
-              <span>{currentEvent.location}</span>
+          {/* Sharp Foreground Image */}
+          <div className="absolute inset-0 flex items-center justify-center p-4 md:p-8">
+            <div className="relative w-full h-full max-w-5xl mx-auto shadow-2xl rounded-2xl overflow-hidden group-hover:scale-[1.02] transition-transform duration-500">
+              <Image
+                src={event.imageUrl || '/placeholder-event.jpg'}
+                alt={event.title}
+                fill
+                priority={idx === 0}
+                className="object-contain"
+              />
             </div>
           </div>
-          
-          <Link 
-            href={getEventLink(currentEvent)}
-            className="w-full md:w-auto md:self-start bg-primary text-on-primary font-semibold text-sm px-10 py-4 rounded-full shadow-[0_8px_24px_rgba(0,104,93,0.4)] hover:-translate-y-1 hover:bg-primary-container hover:shadow-[0_12px_32px_rgba(0,104,93,0.5)] transition-all duration-300 flex justify-center items-center gap-2 mt-2"
-          >
-            Get Tickets
-          </Link>
-        </div>
-      </div>
+        </Link>
+      ))}
 
       {/* Carousel Controls */}
       {events.length > 1 && (
         <>
           <button 
             onClick={prevSlide}
-            className="absolute left-4 top-1/2 -translate-y-1/2 z-30 p-2 rounded-full bg-surface/20 hover:bg-surface/60 text-white backdrop-blur-sm border border-white/10 transition-all opacity-0 group-hover:opacity-100"
+            className="absolute left-4 top-1/2 -translate-y-1/2 z-30 p-2 rounded-full bg-surface/40 hover:bg-surface/80 text-white backdrop-blur-md border border-white/20 transition-all opacity-0 group-hover:opacity-100"
           >
             <ChevronLeft size={32} />
           </button>
           <button 
             onClick={nextSlide}
-            className="absolute right-4 top-1/2 -translate-y-1/2 z-30 p-2 rounded-full bg-surface/20 hover:bg-surface/60 text-white backdrop-blur-sm border border-white/10 transition-all opacity-0 group-hover:opacity-100"
+            className="absolute right-4 top-1/2 -translate-y-1/2 z-30 p-2 rounded-full bg-surface/40 hover:bg-surface/80 text-white backdrop-blur-md border border-white/20 transition-all opacity-0 group-hover:opacity-100"
           >
             <ChevronRight size={32} />
           </button>
 
           {/* Indicators */}
-          <div className="absolute bottom-12 left-1/2 -translate-x-1/2 z-30 flex items-center gap-2">
+          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-30 flex items-center gap-2 bg-black/30 px-3 py-2 rounded-full backdrop-blur-sm">
             {events.map((_, idx) => (
               <button 
                 key={idx}
                 onClick={() => setCurrentIndex(idx)}
-                className={`transition-all rounded-full ${idx === currentIndex ? 'w-8 h-2 bg-primary' : 'w-2 h-2 bg-white/40 hover:bg-white/60'}`}
+                className={`transition-all rounded-full ${idx === currentIndex ? 'w-8 h-2 bg-white' : 'w-2 h-2 bg-white/40 hover:bg-white/80'}`}
                 aria-label={`Go to slide ${idx + 1}`}
               />
             ))}

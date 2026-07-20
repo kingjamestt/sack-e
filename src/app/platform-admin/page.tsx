@@ -5,7 +5,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useRouter } from 'next/navigation';
 import { collection, query, getDocs, where, doc, getDoc, updateDoc } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
-import { Calendar, Users, Activity, Wallet, ShieldAlert, DollarSign, CheckCircle, PauseCircle, XCircle } from 'lucide-react';
+import { Calendar, Users, Activity, Wallet, ShieldAlert, DollarSign, CheckCircle, PauseCircle, XCircle, Star, StarOff } from 'lucide-react';
 import { format, parseISO } from 'date-fns';
 import { getEventLink } from '@/lib/events';
 import Link from 'next/link';
@@ -27,6 +27,7 @@ interface PlatformEvent {
   payoutStatus: string;
   organizerId: string;
   createdAt: string;
+  isFeatured: boolean;
 }
 
 export default function PlatformAdminDashboard() {
@@ -153,7 +154,8 @@ export default function PlatformAdminDashboard() {
           status: data.status || 'draft',
           payoutStatus: data.payoutStatus || 'none',
           organizerId: data.organizerId || '',
-          createdAt: data.createdAt || new Date().toISOString()
+          createdAt: data.createdAt || new Date().toISOString(),
+          isFeatured: data.isFeatured || false
         });
       });
       
@@ -205,6 +207,16 @@ export default function PlatformAdminDashboard() {
     } catch (error) {
       console.error("Failed to update status", error);
       alert("Failed to update event status.");
+    }
+  };
+
+  const handleToggleFeatured = async (eventId: string, currentFeatured: boolean) => {
+    try {
+      await updateDoc(doc(db, 'events', eventId), { isFeatured: !currentFeatured });
+      setEvents(events.map(e => e.id === eventId ? { ...e, isFeatured: !currentFeatured } : e));
+    } catch (error) {
+      console.error("Failed to toggle featured status", error);
+      alert("Failed to update featured status.");
     }
   };
 
@@ -346,7 +358,10 @@ export default function PlatformAdminDashboard() {
                 ) : (
                   events.map(event => (
                     <tr key={event.id} className="hover:bg-black/5 transition-colors">
-                      <td className="px-6 py-4 font-semibold">{event.title}</td>
+                      <td className="px-6 py-4 font-semibold flex items-center gap-2">
+                        {event.isFeatured && <Star size={16} className="text-yellow-500 fill-yellow-500" />}
+                        {event.title}
+                      </td>
                       <td className="px-6 py-4 text-on-surface-variant">
                         {event.date ? format(parseISO(event.date), 'MMM d, yyyy') : 'TBA'}
                       </td>
@@ -392,12 +407,21 @@ export default function PlatformAdminDashboard() {
                             </>
                           )}
                           {event.status === 'active' && (
-                            <button 
-                              onClick={() => handleUpdateEventStatus(event.id, 'pending')}
-                              className="text-error hover:text-error/80 font-semibold text-xs flex items-center gap-1"
-                            >
-                              <PauseCircle size={14} /> Suspend
-                            </button>
+                            <>
+                              <button 
+                                onClick={() => handleUpdateEventStatus(event.id, 'pending')}
+                                className="text-error hover:text-error/80 font-semibold text-xs flex items-center gap-1"
+                              >
+                                <PauseCircle size={14} /> Suspend
+                              </button>
+                              <button 
+                                onClick={() => handleToggleFeatured(event.id, event.isFeatured)}
+                                className={`${event.isFeatured ? 'text-yellow-600 hover:text-yellow-700' : 'text-yellow-500 hover:text-yellow-600'} font-semibold text-xs flex items-center gap-1 ml-2`}
+                              >
+                                {event.isFeatured ? <StarOff size={14} /> : <Star size={14} />} 
+                                {event.isFeatured ? 'Unfeature' : 'Feature'}
+                              </button>
+                            </>
                           )}
                         </div>
                       </td>
