@@ -41,10 +41,10 @@ export default function HeroCarousel() {
   }, [events.length]);
 
   useEffect(() => {
-    if (events.length <= 1) return;
+    if (events.length <= 1 || activeBannerIdx !== null) return;
     const interval = setInterval(nextSlide, 5000);
     return () => clearInterval(interval);
-  }, [events.length, nextSlide]);
+  }, [events.length, nextSlide, activeBannerIdx]);
 
   if (loading) {
     return (
