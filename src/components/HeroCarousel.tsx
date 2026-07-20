@@ -116,7 +116,7 @@ export default function HeroCarousel() {
               alt={event.title}
               fill
               priority={idx === 0}
-              className="object-contain"
+              className="object-cover"
             />
           </div>
         </Link>
