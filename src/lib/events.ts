@@ -441,6 +441,7 @@ export async function finalizeReservation(eventId: string, reservationId: string
      * - BSWeb Fee (Stripe/Payment): 1.5%
      * Organizers receive the remainder.
      */
+    const totalRevenue = resData.total || 0;
     // Distribute fees (e.g. 4% Sack-E, 1.5% BS Web, 94.5% Organizer)
     const sackeFee = totalRevenue * 0.04;
     const bswebFee = totalRevenue * 0.015;
