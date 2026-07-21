@@ -42,7 +42,7 @@ function CallbackContent() {
           <CheckCircle2 size={64} className="text-primary mx-auto mb-6" />
           <h1 className="text-3xl font-bold mb-4 font-display">Payment Successful!</h1>
           <p className="text-on-surface-variant mb-8">
-            Your ticket has been secured. An email confirmation has been sent with your receipt and QR code.
+            Your ticket has been secured. An email confirmation has been sent with your receipt. You can access your QR code from your tickets page on the day of the event.
           </p>
           <div className="bg-surface-container-high rounded-xl p-4 mb-8 text-left border border-white/5">
             <div className="flex justify-between items-center gap-4 mb-2">
