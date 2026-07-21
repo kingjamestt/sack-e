@@ -136,9 +136,9 @@ export default function TicketsPage() {
 
   if (!user) return null;
 
-  const now = new Date();
-  const upcomingTickets = tickets.filter(t => t.eventDetails && new Date(t.eventDetails.date) >= now);
-  const pastTickets = tickets.filter(t => t.eventDetails && new Date(t.eventDetails.date) < now);
+  const now = startOfDay(new Date());
+  const upcomingTickets = tickets.filter(t => t.eventDetails && startOfDay(new Date(t.eventDetails.date)) >= now);
+  const pastTickets = tickets.filter(t => t.eventDetails && startOfDay(new Date(t.eventDetails.date)) < now);
 
   const displayedTickets = activeTab === 'upcoming' ? upcomingTickets : pastTickets;
 
