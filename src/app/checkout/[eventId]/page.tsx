@@ -2,7 +2,7 @@
 
 import { use, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { getEvent, getEventLink, TicketTier, getTicketTiers, reserveTickets, finalizeReservation, requestTickets } from '@/lib/events';
+import { getEvent, getEventLink, TicketTier, getTicketTiers, reserveTickets, requestTickets } from '@/lib/events';
 import { EventData, TeamMember } from '@/types';
 import { getTeamMembers } from '@/lib/team';
 import { useAuth } from '@/contexts/AuthContext';
@@ -111,19 +111,11 @@ export default function CheckoutPage({ params }: { params: Promise<{ eventId: st
         }, 3000);
       } else {
         // Purchase flow
-        // Simulate payment delay
-        await new Promise(r => setTimeout(r, 2000));
-        
         // 1. Reserve the tickets
         const reservationId = await reserveTickets(eventId, cartItems, user.uid);
         
-        // 2. Finalize the reservation (mocking 100% success rate for WiPay)
-        await finalizeReservation(eventId, reservationId);
-        
-        setSuccess(true);
-        setTimeout(() => {
-          router.push('/my-tickets');
-        }, 2000);
+        // 2. Redirect to the actual WiPay payment page
+        router.push(`/checkout/${eventId}/${reservationId}`);
       }
       
     } catch (err: any) {
