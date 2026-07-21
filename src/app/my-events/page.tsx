@@ -7,7 +7,7 @@ import { collection, query, where, getDocs, orderBy, collectionGroup, doc, getDo
 import Image from 'next/image';
 import { db } from '@/lib/firebase';
 import Link from 'next/link';
-import { Plus, Calendar, MapPin, Users, Activity, Megaphone, LifeBuoy } from 'lucide-react';
+import { Plus, Calendar, MapPin, Users, Activity, Megaphone, LifeBuoy, DollarSign } from 'lucide-react';
 import { format, parseISO } from 'date-fns';
 import { getTicketTiers } from '@/lib/events';
 import ContactSupportModal from '@/components/ContactSupportModal';
@@ -164,6 +164,9 @@ export default function AdminDashboard() {
           <button onClick={() => openSupportModal()} className="px-5 py-3 bg-surface-container border border-black/10 text-on-surface font-bold rounded-xl hover:bg-surface-container-high transition-colors flex items-center justify-center gap-2">
             <LifeBuoy size={20} /> Support
           </button>
+          <Link href="/my-events/payouts" className="px-5 py-3 bg-surface-container border border-black/10 text-on-surface font-bold rounded-xl hover:bg-surface-container-high transition-colors flex items-center justify-center gap-2">
+            <DollarSign size={20} /> Payouts
+          </Link>
           <Link href="/my-events/create" className="px-6 py-3 bg-primary text-on-primary font-bold rounded-xl hover:bg-primary-container hover:text-on-primary-container transition-colors shadow-lg flex items-center justify-center gap-2">
             <Plus size={20} /> Create Event
           </Link>
